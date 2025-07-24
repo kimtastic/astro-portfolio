@@ -2,49 +2,563 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kim Jeske - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Starlight-inspired Theme */
+        :root {
+            --color-dark-bg: #171820;
+            --color-dark-card: #23262f;
+            --color-border: #363a4f;
+            --color-lavender: #A78BFA;
+            --color-lavender-dark: #8B5CF6;
+            --color-yellow-accent: #FBBF24;
+            --color-text-light: #E5E7EB;
+            --color-text-dark: #9CA3AF;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-dark-bg);
+            color: var(--color-text-light);
+            font-family: var(--font-sans);
+            margin: 0;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        main {
+            padding-top: 5rem; /* Header height */
+        }
+
+        section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        /* Header */
+        .site-header {
+            background-color: rgba(23, 24, 32, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .site-header .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-light);
+            text-decoration: none;
+        }
+
+        .main-nav {
+            display: none;
+        }
+
+        .main-nav a {
+            color: var(--color-text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a:hover {
+            color: var(--color-lavender);
+        }
+
+        .mobile-menu-button {
+            background: none;
+            border: none;
+            color: var(--color-text-light);
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            padding: 0 1.5rem 1rem;
+        }
+
+        .mobile-menu.is-open {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--color-text-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .button {
+            display: inline-block;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .button-primary {
+            background-color: var(--color-lavender);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: var(--color-lavender-dark);
+        }
+
+        .button-secondary {
+            background-color: var(--color-dark-card);
+            color: var(--color-text-light);
+        }
+
+        .button-secondary:hover {
+            background-color: #363a4f;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding-top: 6rem;
+            padding-bottom: 8rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            max-width: 36rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--color-text-dark);
+            margin-bottom: 2rem;
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero .highlight-lavender { color: var(--color-lavender); }
+        .hero .highlight-yellow { color: var(--color-yellow-accent); }
+        .hero-actions { display: flex; justify-content: center; gap: 1rem; }
+
+        /* About Section */
+        .about-section { background-color: var(--color-dark-card); }
+        .about-grid { display: grid; gap: 3rem; align-items: center; }
+        .about-grid img { border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; }
+        .about-content h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+        .about-content p { color: var(--color-text-dark); margin-bottom: 1rem; }
+        .skills-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .skill-tag { background-color: #363a4f; color: var(--color-text-light); font-size: 0.875rem; font-weight: 500; padding: 0.25rem 0.75rem; border-radius: 9999px; }
+
+        /* Timeline Section */
+        .timeline-container { max-width: 48rem; margin: 0 auto; }
+        .timeline-heading { text-align: center; font-size: 2rem; font-weight: 700; margin-bottom: 4rem; }
+        .timeline-wrapper { position: relative; }
+        .timeline-line { position: absolute; left: 1rem; top: 0; height: 100%; width: 2px; background-color: var(--color-border); }
+        .timeline-item { margin-bottom: 3rem; padding-left: 3rem; position: relative; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-icon { position: absolute; left: 0; top: 0.25rem; width: 2rem; height: 2rem; background-color: var(--color-lavender); border-radius: 50%; display: flex; align-items: center; justify-content: center; ring: 8px; box-shadow: 0 0 0 8px var(--color-dark-bg); }
+        .timeline-icon i { color: white; width: 1rem; height: 1rem; }
+        .timeline-card { background-color: var(--color-dark-card); padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .timeline-date { font-size: 0.875rem; font-weight: 600; color: var(--color-yellow-accent); margin-bottom: 0.25rem; }
+        .timeline-title { font-size: 1.25rem; font-weight: 700; color: var(--color-text-light); }
+        .timeline-subtitle { color: var(--color-text-dark); margin-bottom: 0.5rem; }
+        .timeline-description { font-size: 0.875rem; color: var(--color-text-dark); }
+
+        /* Content Section */
+        .content-section { background-color: var(--color-dark-card); }
+        .content-heading { text-align: center; font-size: 2rem; font-weight: 700; margin-bottom: 3rem; }
+        .content-list { max-width: 48rem; margin: 0 auto; display: grid; gap: 1.5rem; }
+        .content-item-link { display: block; background-color: var(--color-dark-bg); padding: 1.5rem; border-radius: 0.5rem; text-decoration: none; display: flex; align-items: center; gap: 1.5rem; transition: background-color 0.3s ease; }
+        .content-item-link:hover { background-color: #363a4f; }
+        .content-icon-wrapper { flex-shrink: 0; width: 3rem; height: 3rem; background-color: rgba(167, 139, 250, 0.2); color: var(--color-lavender); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; }
+        .content-icon-wrapper i { width: 1.5rem; height: 1.5rem; }
+        .content-text .type { font-size: 0.875rem; color: var(--color-yellow-accent); }
+        .content-text .title { font-size: 1.125rem; font-weight: 700; color: var(--color-text-light); }
+        .content-text .subtitle { color: var(--color-text-dark); }
+        .content-arrow { color: var(--color-lavender); margin-left: auto; opacity: 0; transition: opacity 0.3s ease; }
+        .content-item-link:hover .content-arrow { opacity: 1; }
+
+        /* Contact Section */
+        .contact-section { text-align: center; }
+        .contact-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+        .contact-section p { color: var(--color-text-dark); margin-bottom: 2rem; max-width: 42rem; margin-left: auto; margin-right: auto; }
+        .contact-buttons { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; }
+        .contact-buttons a { width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+
+        /* Footer */
+        .site-footer { border-top: 1px solid var(--color-border); }
+        .footer-content { display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        .footer-content p { color: var(--color-text-dark); font-size: 0.875rem; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-links a { color: var(--color-text-dark); transition: color 0.3s ease; }
+        .social-links a:hover { color: var(--color-lavender); }
+
+        /* Responsive Styles */
+        @media (min-width: 768px) {
+            .main-nav { display: flex; gap: 2rem; }
+            .mobile-menu-button { display: none; }
+            .hero h1 { font-size: 3.75rem; }
+            .hero p { font-size: 1.25rem; }
+            .about-grid { grid-template-columns: repeat(5, 1fr); }
+            .about-grid .about-image { grid-column: span 2 / span 2; }
+            .about-grid .about-content { grid-column: span 3 / span 3; }
+            .contact-buttons { flex-direction: row; }
+            .contact-buttons a { width: auto; }
+            .footer-content { flex-direction: row; }
+            .social-links { margin-top: 0; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="site-title">Kim Jeske</a>
+                <nav class="main-nav">
+                    <a href="#about">About</a>
+                    <a href="#timeline">Timeline</a>
+                    <a href="#content">Content</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <a href="#contact" class="button button-primary" style="display: none;" id="desktop-cta">Get in Touch</a>
+                <button id="mobile-menu-button" class="mobile-menu-button">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu">
+            <a href="#about">About</a>
+            <a href="#timeline">Timeline</a>
+            <a href="#content">Content</a>
+            <a href="#contact">Contact</a>
+            <a href="#contact" class="button button-primary" style="margin-top: 1rem;">Get in Touch</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="container">
+                <h1>Content Leader and Storyteller</h1>
+                <p>
+                    I lead Cloudflare's Product Content Experience team with a mission to make complex technology feel clear, approachable, and empowering. My passion lies at the intersection of <span class="highlight-lavender">user-centered content</span> and <span class="highlight-yellow">technology</span>.
+                </p>
+                <div class="hero-actions">
+                    <a href="https://docs.crochetly.com/" class="button button-primary">My Documentation Site</a>
+                    <a href="https://www.linkedin.com/in/kimberlyjeske/" class="button button-secondary">CV</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-image">
+                        <img src="/kimjeske.jpg" alt="Kim Jeske's Photo" loading="lazy">
+                    </div>
+                    <div class="about-content">
+                        <h2>About Me</h2>
+                        <p>
+                            Hello! I'm Kim Jeske. As a leader in technical communication, I am passionate about creating user-centered content that simplifies complex information. I started my journey as a technical writer and have enjoyed leading across technical documentation, UX content, content design, and information architecture. I love turning complex problems into simple, beautiful, and intuitive content experiences.
+                        </p>
+                        <p>
+                            When I'm not focused on content, you'll find me reading a book, crocheting, or enjoying the outdoors.
+                        </p>
+                        <div class="skills-list">
+                            <span class="skill-tag">Markdown</span>
+                            <span class="skill-tag">XML/DITA</span>
+                            <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">Visual Studio Code</span>
+                            <span class="skill-tag">CI/CD Documentation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Journey Section -->
+        <section id="timeline">
+            <div class="container">
+                <div class="timeline-container">
+                    <h2 class="timeline-heading">Experience</h2>
+                    <div class="timeline-wrapper">
+                        <div class="timeline-line"></div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i data-lucide="briefcase"></i></div>
+                            <div class="timeline-card">
+                                <p class="timeline-date">2020 - Present</p>
+                                <h3 class="timeline-title">Senior Director, Head of Product Content Experience</h3>
+                                <p class="timeline-subtitle">Cloudflare</p>
+                                <p class="timeline-description">I established the technical writing and UX content content, hiring a highly impactful team of user-focused, data-driven writers and strategists.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i data-lucide="briefcase"></i></div>
+                            <div class="timeline-card">
+                                <p class="timeline-date">2018-2020</p>
+                                <h3 class="timeline-title">eCommerce Product Owner</h3>
+                                <p class="timeline-subtitle">National Instruments</p>
+                                <p class="timeline-description">I defined, prioritized, and drove the development of digital products and features that support an online shopping experience.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i data-lucide="briefcase"></i></div>
+                            <div class="timeline-card">
+                                <p class="timeline-date">2016 - 2018</p>
+                                <h3 class="timeline-title">Group Manager</h3>
+                                <p class="timeline-subtitle">National Instruments</p>
+                                <p class="timeline-description">I oversaw, refined, and executed technical communication policies for tech writers and their projects related to the Semiconductor Test System.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i data-lucide="briefcase"></i></div>
+                            <div class="timeline-card">
+                                <p class="timeline-date">2012 - 2016</p>
+                                <h3 class="timeline-title">Technical Writer</h3>
+                                <p class="timeline-subtitle">National Instruments</p>
+                                <p class="timeline-description">I documented programming APIs, hardware specifications, getting started guides, and driver software.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+		<!-- Education Section -->
+        <section id="timeline">
+            <div class="container">
+                <div class="timeline-container">
+                    <h2 class="timeline-heading">Education</h2>
+                    <div class="timeline-wrapper">
+                        <div class="timeline-line"></div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i data-lucide="graduation-cap"></i></div>
+                            <div class="timeline-card">
+                                <p class="timeline-date">2012</p>
+                                <h3 class="timeline-title">M.A. in Technical Communication</h3>
+                                <p class="timeline-subtitle">Texas State University</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i data-lucide="graduation-cap"></i></div>
+                            <div class="timeline-card">
+                                <p class="timeline-date">2003</p>
+                                <h3 class="timeline-title">B.A. in Communications</h3>
+                                <p class="timeline-subtitle">Texas A&M University</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section id="content" class="content-section">
+            <div class="container">
+                <h2 class="content-heading">Podcasts, Webinars, Conferences, and Articles</h2>
+                <div class="content-list">
+                    <a href="https://www.stateofdocs.com/2025/" class="content-item-link">
+                        <div class="content-icon-wrapper"><i data-lucide="file-text"></i></div>
+                        <div class="content-text">
+                            <p class="type">Interview</p>
+                            <h3 class="title">State of Docs Report 2025</h3>
+                            <p class="subtitle">stateofdocs.com, 2025</p>
+                        </div>
+                        <div class="content-arrow"><i data-lucide="arrow-right"></i></div>
+                    </a>
+                    <a href="https://blog.cloudflare.com/open-source-all-the-way-down-upgrading-our-developer-documentation/" class="content-item-link">
+                        <div class="content-icon-wrapper"><i data-lucide="file-text"></i></div>
+                        <div class="content-text">
+                            <p class="type">Blog post</p>
+                            <h3 class="title">Open source all the way down: Upgrading our developer documentation</h3>
+                            <p class="subtitle">Cloudflare Blog, 2025</p>
+                        </div>
+                        <div class="content-arrow"><i data-lucide="arrow-right"></i></div>
+                    </a>
+                    <a href="https://world.productledalliance.com/location/austin/speaker/kimberlyjeske" class="content-item-link">
+                        <div class="content-icon-wrapper"><i data-lucide="presentation"></i></div>
+                        <div class="content-text">
+                            <p class="type">Conference Talk</p>
+                            <h3 class="title">From first click to forever customer - The role of UX in product-led success</h3>
+                            <p class="subtitle">Speaker at Product-led Alliance, 2025</p>
+                        </div>
+                        <div class="content-arrow"><i data-lucide="arrow-right"></i></div>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=IoRKCXbfGvQ" class="content-item-link">
+                        <div class="content-icon-wrapper"><i data-lucide="mic"></i></div>
+                        <div class="content-text">
+                            <p class="type">Webinar</p>
+                            <h3 class="title">Technical content is the product with Kim Jeske</h3>
+                            <p class="subtitle">Content Wrangler, 2022</p>
+                        </div>
+                        <div class="content-arrow"><i data-lucide="arrow-right"></i></div>
+                    </a>
+					<a href="https://blog.cloudflare.com/content-as-a-product/" class="content-item-link">
+                        <div class="content-icon-wrapper"><i data-lucide="file-text"></i></div>
+                        <div class="content-text">
+                            <p class="type">Blog post</p>
+                            <h3 class="title">How we treat content as a product</h3>
+                            <p class="subtitle">Cloudflare Blog, 2022</p>
+                        </div>
+                        <div class="content-arrow"><i data-lucide="arrow-right"></i></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Let's Connect</h2>
+                <p>
+                    I'm always open to new opportunities and collaborations. Feel free to connect with me on LinkedIn or check out my work on GitHub.
+                </p>
+                <div class="contact-buttons">
+                    <a href="https://www.linkedin.com/in/kimberlyjeske/" class="button button-primary">
+                        <i data-lucide="linkedin"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/kimberlyjeske" class="button button-secondary">
+                        <i data-lucide="github"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Kim Jeske. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/kimberlyjeske"><i data-lucide="github"></i></a>
+                    <a href="https://www.linkedin.com/in/kimberlyjeske/"><i data-lucide="linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // TypeScript: declare lucide on window
+        // @ts-ignore
+        declare global {
+            interface Window {
+                lucide?: any;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lucide Icons
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const desktopCtaButton = document.getElementById('desktop-cta');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('is-open');
+                });
+            }
+            
+            // Show desktop CTA on larger screens
+            if (window.innerWidth >= 768 && desktopCtaButton) {
+                desktopCtaButton.style.display = 'inline-block';
+            }
+            window.addEventListener('resize', () => {
+                 if (window.innerWidth >= 768 && desktopCtaButton) {
+                    desktopCtaButton.style.display = 'inline-block';
+                } else if(desktopCtaButton) {
+                    desktopCtaButton.style.display = 'none';
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const self = e.currentTarget as HTMLAnchorElement;
+                    // Allow normal link behavior for non-section links
+                    if (self.getAttribute('href') === '#') {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        return;
+                    }
+                    
+                    const targetId = self.getAttribute('href');
+                    let targetElement: Element | null = null;
+                    if (targetId) {
+                        targetElement = document.querySelector(targetId);
+                    }
+
+                    if (targetElement) {
+                        e.preventDefault();
+                        // Close mobile menu on link click
+                        if (mobileMenu && mobileMenu.classList.contains('is-open')) {
+                            mobileMenu.classList.remove('is-open');
+                        }
+                        
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
 </html>
+
