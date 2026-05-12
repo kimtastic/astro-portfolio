@@ -1,0 +1,256 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Studies | Kim Jeske</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --page-bg: #fcfafa;
+            --frame-bg: #e7e5df;
+            --card-bg: #ffffff;
+            --text: #202124;
+            --text-subtle: #666;
+            --text-muted: #8a857e;
+            --border: #dfddd7;
+            --button-bg: #111;
+            --button-text: #fff;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { background: var(--frame-bg); }
+
+        body {
+            background: var(--page-bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            margin: 0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        main {
+            padding-top: 6rem;
+            padding-bottom: 5rem;
+        }
+
+        .page-header { text-align: center; margin-bottom: 4rem; }
+
+        .page-header h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            margin: 0 0 1rem;
+            line-height: 1.05;
+        }
+
+        .page-header p {
+            color: var(--text-subtle);
+            max-width: 42rem;
+            margin: 0 auto;
+            font-size: 1.0625rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-subtle);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        .case-studies-grid { display: grid; gap: 1.5rem; }
+
+        .case-study-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            border-color: #ccc;
+        }
+
+        .card-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: #f4f2ef;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.375rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.75rem;
+        }
+
+        .card-description {
+            color: var(--text-subtle);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .card-meta i { width: 1rem; height: 1rem; }
+
+        .contact-section { background: var(--card-bg); border-top: 1px solid var(--border); margin-top: 5rem; }
+
+        .contact-section .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .contact-section h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin: 0 0 0.25rem;
+        }
+
+        .contact-section p {
+            color: var(--text-subtle);
+            margin: 0;
+            font-size: 1.0625rem;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--button-text);
+            font-weight: 600;
+            padding: 0.875rem 2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-button:hover { opacity: 0.85; }
+
+        @media (min-width: 768px) {
+            .case-studies-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <a href="/" class="back-link">
+                <i data-lucide="arrow-left" width="20" height="20"></i>
+                Back to Home
+            </a>
+
+            <header class="page-header">
+                <h1>Case Studies</h1>
+                <p>In-depth looks at how I've transformed content strategy and built high-performing teams at leading tech companies.</p>
+            </header>
+
+            <div class="case-studies-grid">
+                <a href="/case-study/cloudflare-docs" class="case-study-card">
+                    <span class="card-tag">Documentation Strategy</span>
+                    <h2 class="card-title">Transforming Cloudflare's Documentation</h2>
+                    <p class="card-description">Building an award-winning open-source documentation platform and team from the ground up</p>
+                    <div class="card-meta">
+                        <span><i data-lucide="calendar"></i> 2020 - Present</span>
+                        <span><i data-lucide="users"></i> 5M+ developers, 30+ team members</span>
+                    </div>
+                </a>
+
+                <a href="/case-study/crochetly" class="case-study-card">
+                    <span class="card-tag">AI Leadership</span>
+                    <h2 class="card-title">AI Documentation Transformation</h2>
+                    <p class="card-description">How hands-on R&D became the proof-of-concept for driving organizational AI adoption</p>
+                    <div class="card-meta">
+                        <span><i data-lucide="calendar"></i> 2024 - Present</span>
+                        <span><i data-lucide="user"></i> Solo Initiative</span>
+                    </div>
+                </a>
+
+                <a href="/case-study/ni-sts" class="case-study-card">
+                    <span class="card-tag">Documentation Strategy</span>
+                    <h2 class="card-title">First to Market: Building NI's Semiconductor Test Documentation</h2>
+                    <p class="card-description">Creating foundational documentation and team structure for National Instruments' entry into semiconductor production test</p>
+                    <div class="card-meta">
+                        <span><i data-lucide="calendar"></i> 2016 - 2018</span>
+                        <span><i data-lucide="users"></i> Team of 4-5</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <section class="contact-section">
+            <div class="container">
+                <div>
+                    <h2>Let's Connect</h2>
+                    <p>I'm always open to discussing new opportunities and collaborations.</p>
+                </div>
+                <a href="https://www.linkedin.com/in/kimberlyjeske/" class="contact-button" target="_blank">
+                    <i data-lucide="linkedin" width="20" height="20"></i>
+                    Connect on LinkedIn
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

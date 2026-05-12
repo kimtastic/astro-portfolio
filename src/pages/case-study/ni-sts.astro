@@ -1,0 +1,487 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First to Market: Building NI's Semiconductor Test Documentation | Kim Jeske</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --page-bg: #fcfafa;
+            --frame-bg: #e7e5df;
+            --card-bg: #ffffff;
+            --text: #202124;
+            --text-subtle: #666;
+            --text-muted: #8a857e;
+            --border: #dfddd7;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { background: var(--frame-bg); }
+
+        body {
+            background: var(--page-bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            margin: 0;
+            line-height: 1.7;
+            font-size: 16px;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+        main { padding-top: 6rem; padding-bottom: 5rem; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-subtle);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        .hero { text-align: center; margin-bottom: 4rem; }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin: 0 0 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-subtle);
+            max-width: 36rem;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            aspect-ratio: 1;
+            transition: border-color 0.3s ease;
+        }
+
+        .stat-card:hover { border-color: #bbb; }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-family: var(--font-heading);
+            font-size: 1.375rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            color: var(--text);
+        }
+
+        .stat-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .section { margin-bottom: 4rem; max-width: 720px; margin-left: auto; margin-right: auto; }
+
+        .section h2 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-subtle);
+        }
+
+        .section p { color: var(--text-subtle); margin-bottom: 1rem; }
+        .section ul { color: var(--text-subtle); margin-bottom: 1rem; padding-left: 1.5rem; }
+        .section li { margin-bottom: 0.5rem; }
+        .section li strong { color: var(--text); }
+
+        .highlight-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--text);
+            padding: 1.5rem;
+            margin: 2rem auto;
+            border-radius: 0 1rem 1rem 0;
+            max-width: 720px;
+        }
+
+        .highlight-box p { margin: 0; color: var(--text); }
+
+        .principles-list { list-style: none; padding: 0; margin: 1.5rem auto; max-width: 720px; }
+
+        .principles-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-subtle);
+        }
+
+        .principles-list li::before {
+            content: '\2192';
+            position: absolute;
+            left: 0;
+            color: var(--text);
+            font-weight: bold;
+        }
+
+        .team-strategy {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 720px;
+        }
+
+        .team-strategy h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .team-strategy ul { margin: 0; }
+
+        .deliverables-grid { display: grid; gap: 1rem; margin: 1.5rem 0; }
+
+        .deliverable {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+        }
+
+        .deliverable strong {
+            color: var(--text);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .deliverable span { font-size: 0.9375rem; color: var(--text-subtle); }
+
+        .quote-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+
+        .quote-box p {
+            margin: 0;
+            font-size: 1.0625rem;
+            font-style: italic;
+            color: var(--text);
+        }
+
+        .quote-box strong { color: var(--text); }
+
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .outcome {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 0.75rem;
+        }
+
+        .outcome strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .outcome span { color: var(--text-subtle); font-size: 0.9375rem; }
+
+        .lessons-list { list-style: none; padding: 0; margin: 1.5rem 0; }
+
+        .lessons-list li {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .lessons-list li:last-child { margin-bottom: 0; }
+
+        .lessons-list h4 {
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lessons-list p { margin: 0; color: var(--text-subtle); }
+
+        @media (min-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+            .outcomes-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <a href="/case-study" class="back-link">
+                <i data-lucide="arrow-left" width="20" height="20"></i>
+                Back to Portfolio
+            </a>
+
+            <header class="hero">
+                <h1>First to Market: Building NI's Semiconductor Test Documentation</h1>
+                <p class="hero-description">Creating foundational documentation and team structure for National Instruments' entry into semiconductor production test</p>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Role</div>
+                    <div class="stat-value">Group Manager</div>
+                    <div class="stat-subtitle">Technical Communication</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Timeline</div>
+                    <div class="stat-value">2016 - 2018</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Team</div>
+                    <div class="stat-value">4 → 5</div>
+                    <div class="stat-subtitle">Writers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Scope</div>
+                    <div class="stat-value">New Product Line</div>
+                </div>
+            </div>
+
+            <section class="section">
+                <h2>The Challenge</h2>
+                <h3>Documenting the Undocumented: NI's Entry Into Semiconductor ATE</h3>
+                <p>When National Instruments launched the Semiconductor Test System (STS), they were entering a completely new market: production-ready Automated Test Equipment (ATE) for semiconductor manufacturing. This wasn't just a new product—it was a fundamental shift from lab instrumentation to 24/7 production test environments.</p>
+                <p>As the <strong>first technical writer assigned to STS</strong>, I faced a unique challenge: not just documenting a product, but <strong>defining how to document an entirely new product category</strong> for customers who had never worked with NI before.</p>
+
+                <h3>The Core Challenge</h3>
+                <p>STS was a completely new product category for NI. No existing templates, no reference materials, no established customer journey. Combined with complex system integration (PXI hardware, TestStand software, LabVIEW programming, handlers, probers) and an aggressive timeline, I had to build the documentation framework from scratch while the product was still being developed.</p>
+            </section>
+
+            <section class="section">
+                <h2>The Strategy</h2>
+                <h3>System-Level Documentation: A Customer-First Approach</h3>
+                <p>The fundamental challenge wasn't technical—it was conceptual. NI's existing documentation was organized by individual products (this PXI module, that software tool). But semiconductor test engineers didn't think in individual components; they thought in <strong>complete test systems and workflows</strong>.</p>
+
+                <div class="highlight-box">
+                    <p><strong>The Core Insight:</strong> Customers buying STS needed to understand: "How do I set up my complete semiconductor test environment?" not "How does PXI module X work?" This required a complete reimagining of documentation structure—from product-centric to customer-journey-centric.</p>
+                </div>
+
+                <p><strong>Strategic Documentation Principles:</strong></p>
+                <ul class="principles-list">
+                    <li><strong>System-first organization:</strong> Start with the complete STS setup, then drill into components as needed</li>
+                    <li><strong>Workflow-based content:</strong> Document the customer journey from unboxing to running first test program</li>
+                    <li><strong>Cross-product integration:</strong> Show how hardware, software, handlers, and probers work together</li>
+                    <li><strong>Progressive disclosure:</strong> Quick start for experienced engineers, deep technical details for troubleshooting</li>
+                    <li><strong>Production-ready language:</strong> Adopt semiconductor industry terminology and standards (STDF, binning, multisite, etc.)</li>
+                </ul>
+
+                <p>This required navigating complex internal politics—existing hardware and software teams each wanted their products documented independently. I had to advocate for a customer-first structure that crossed organizational boundaries.</p>
+            </section>
+
+            <section class="section">
+                <h2>Team Building</h2>
+                <h3>From Solo Writer to Strategic Team</h3>
+                <p>After establishing the initial documentation framework, I was promoted to <strong>Group Manager</strong> and tasked with building the first dedicated semiconductor documentation team.</p>
+
+                <div class="team-strategy">
+                    <h4>Team Formation Strategy</h4>
+                    <ul>
+                        <li><strong>Internal recruitment:</strong> Identified 3 senior technical writers already at NI who had relevant hardware/software experience</li>
+                        <li><strong>Domain expertise development:</strong> Created learning paths for the team to understand semiconductor test workflows and industry standards</li>
+                        <li><strong>Collaborative ownership:</strong> Each team member owned a system component but contributed to the unified documentation set</li>
+                        <li><strong>Cross-functional integration:</strong> Embedded team with STS product engineers, building relationships that accelerated content accuracy</li>
+                    </ul>
+                </div>
+
+                <p><strong>Team Responsibilities:</strong></p>
+                <ul>
+                    <li>System-level documentation covering complete STS setup and workflows</li>
+                    <li>Hardware documentation for PXI instrumentation specific to semiconductor test</li>
+                    <li>Software documentation for TestStand Semiconductor Module</li>
+                    <li>Integration guides for handlers, probers, and production test environments</li>
+                    <li>Training materials and customer onboarding content</li>
+                </ul>
+
+                <div class="quote-box">
+                    <p><strong>Leadership Learning:</strong> Building this team taught me that the best specialists come from within. Rather than hiring externally for "semiconductor experience," we invested in smart technical writers who could learn the domain. This approach built loyalty and created documentation that bridged NI's technology with customer needs.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Implementation</h2>
+                <h3>Building the First Documentation Set</h3>
+
+                <p><strong>What we created:</strong></p>
+                <div class="deliverables-grid">
+                    <div class="deliverable">
+                        <strong>STS Getting Started Guide</strong>
+                        <span>Comprehensive setup documentation from unboxing to first test execution</span>
+                    </div>
+                    <div class="deliverable">
+                        <strong>System Architecture Documentation</strong>
+                        <span>How all components work together—hardware, software, handlers, test programs</span>
+                    </div>
+                    <div class="deliverable">
+                        <strong>Hardware Integration Guides</strong>
+                        <span>Connecting PXI modules, configuring spring pin layouts, interfacing with handlers/probers</span>
+                    </div>
+                    <div class="deliverable">
+                        <strong>Test Program Development</strong>
+                        <span>Using TestStand Semiconductor Module, creating multisite tests, generating STDF reports</span>
+                    </div>
+                    <div class="deliverable">
+                        <strong>Calibration &amp; Maintenance</strong>
+                        <span>Production environment requirements, uptime optimization, troubleshooting workflows</span>
+                    </div>
+                    <div class="deliverable">
+                        <strong>Migration Guides</strong>
+                        <span>Helping customers transition from legacy ATE platforms to STS</span>
+                    </div>
+                </div>
+
+                <p><strong>Technical challenges we solved:</strong></p>
+                <ul>
+                    <li>Explaining complex RF measurements and digital pattern testing to production engineers</li>
+                    <li>Documenting multisite parallelism and throughput optimization</li>
+                    <li>Creating visual system diagrams showing signal flow and component connections</li>
+                    <li>Establishing consistent terminology across hardware and software docs</li>
+                    <li>Building a content reuse strategy for components used across multiple STS configurations</li>
+                </ul>
+
+                <h3>Innovation: Cross-Product Documentation Model</h3>
+                <p>We pioneered a documentation structure where a single piece of content could serve both the STS system documentation AND the individual product documentation. This meant semiconductor customers got system-level guidance while R&D customers could still find component-specific details. It was complex to build but eliminated redundancy and ensured consistency.</p>
+            </section>
+
+            <section class="section">
+                <h2>Impact &amp; Results</h2>
+                <h3>Enabling NI's Semiconductor Market Entry</h3>
+
+                <p><strong>Measurable Outcomes:</strong></p>
+                <div class="outcomes-grid">
+                    <div class="outcome">
+                        <strong>Launch Readiness</strong>
+                        <span>Complete documentation set delivered on time for first customer shipments</span>
+                    </div>
+                    <div class="outcome">
+                        <strong>Customer Success</strong>
+                        <span>Documentation enabled customers to set up and run test programs without on-site NI support</span>
+                    </div>
+                    <div class="outcome">
+                        <strong>Reduced Support</strong>
+                        <span>Comprehensive troubleshooting and maintenance docs decreased support tickets</span>
+                    </div>
+                    <div class="outcome">
+                        <strong>Team Foundation</strong>
+                        <span>Established documentation practices and team structure that scaled as STS product line grew</span>
+                    </div>
+                    <div class="outcome">
+                        <strong>Content Reusability</strong>
+                        <span>Documentation framework enabled efficient creation of docs for T1, T2, and T4 system configurations</span>
+                    </div>
+                    <div class="outcome">
+                        <strong>Market Credibility</strong>
+                        <span>Professional, comprehensive documentation signaled NI's serious commitment to semiconductor production test</span>
+                    </div>
+                </div>
+
+                <p><strong>Strategic Impact:</strong></p>
+                <ul>
+                    <li><strong>Competitive differentiation:</strong> Customer-focused documentation became a selling point vs. traditional ATE vendors</li>
+                    <li><strong>Internal alignment:</strong> System-level documentation forced product teams to think holistically about customer experience</li>
+                    <li><strong>Foundation for growth:</strong> Documentation model scaled to support STS expansion into RF front-end, IoT, and mixed-signal testing</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>Leadership Lessons</h2>
+
+                <ul class="lessons-list">
+                    <li>
+                        <h4>Being first means defining the standard</h4>
+                        <p>As the first writer on STS, I didn't just document a product—I established how an entire product line would be documented. This taught me the responsibility and opportunity of being a "first mover" in any initiative.</p>
+                    </li>
+                    <li>
+                        <h4>Customer-first documentation requires organizational change</h4>
+                        <p>The system-level documentation model wasn't just a writing challenge; it required getting buy-in from hardware teams, software teams, and product management who were used to product-centric docs. Successful documentation leadership means navigating organizational complexity.</p>
+                    </li>
+                    <li>
+                        <h4>Team building is about potential, not existing expertise</h4>
+                        <p>Rather than searching for writers with semiconductor backgrounds (nearly impossible to find), we invested in technical writers with strong hardware/software skills and built their domain expertise. This approach created a loyal, effective team.</p>
+                    </li>
+                    <li>
+                        <h4>Documentation as competitive advantage</h4>
+                        <p>In a market where NI was the newcomer competing against established ATE vendors, exceptional documentation became a differentiator. This reinforced my belief that content isn't just support—it's a product that drives business outcomes.</p>
+                    </li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>The Meta-Skill: Building While Defining</strong><br>The most valuable skill I developed wasn't technical writing—it was the ability to simultaneously build documentation AND establish the framework for how it should be built. This "meta-work" of defining standards, processes, and organizational structures while executing is what distinguishes individual contributors from leaders who scale impact.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

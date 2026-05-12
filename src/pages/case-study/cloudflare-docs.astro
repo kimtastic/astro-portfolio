@@ -1,0 +1,466 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transforming Cloudflare's Documentation | Kim Jeske</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --page-bg: #fcfafa;
+            --frame-bg: #e7e5df;
+            --card-bg: #ffffff;
+            --text: #202124;
+            --text-subtle: #666;
+            --text-muted: #8a857e;
+            --border: #dfddd7;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { background: var(--frame-bg); }
+
+        body {
+            background: var(--page-bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            margin: 0;
+            line-height: 1.7;
+            font-size: 16px;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+        main { padding-top: 6rem; padding-bottom: 5rem; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-subtle);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        .hero { text-align: center; margin-bottom: 4rem; }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin: 0 0 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-subtle);
+            max-width: 36rem;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            aspect-ratio: 1;
+            transition: border-color 0.3s ease;
+        }
+
+        .stat-card:hover { border-color: #bbb; }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-family: var(--font-heading);
+            font-size: 1.375rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            color: var(--text);
+        }
+
+        .stat-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .meta-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .meta-item { text-align: center; }
+
+        .meta-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-value { font-weight: 500; }
+
+        .section { margin-bottom: 4rem; max-width: 720px; margin-left: auto; margin-right: auto; }
+
+        .section h2 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-subtle);
+        }
+
+        .section p { color: var(--text-subtle); margin-bottom: 1rem; }
+
+        .section ul { color: var(--text-subtle); margin-bottom: 1rem; padding-left: 1.5rem; }
+        .section li { margin-bottom: 0.5rem; }
+        .section li strong { color: var(--text); }
+
+        .highlight-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--text);
+            padding: 1.5rem;
+            margin: 2rem auto;
+            border-radius: 0 1rem 1rem 0;
+            max-width: 720px;
+        }
+
+        .highlight-box p { margin: 0; font-style: italic; color: var(--text); }
+
+        .pillars-grid { display: grid; gap: 1.5rem; margin: 2rem auto; max-width: 720px; }
+
+        .pillar-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 1rem;
+        }
+
+        .pillar-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            background: var(--text);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.125rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-card p { margin: 0; font-size: 0.9375rem; color: var(--text-subtle); }
+
+        .awards-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 720px;
+        }
+
+        .awards-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .awards-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-list { list-style: none; padding: 0; margin: 2rem auto; max-width: 720px; }
+
+        .timeline-list li {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 1.5rem;
+            border-left: 2px solid var(--border);
+            margin-left: 0.5rem;
+            color: var(--text-subtle);
+        }
+
+        .timeline-list li:last-child { border-left-color: transparent; padding-bottom: 0; }
+
+        .timeline-list li::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--text);
+            border-radius: 50%;
+        }
+
+        .timeline-list strong { color: var(--text); }
+
+        .external-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+            transition: opacity 0.3s ease;
+        }
+
+        .external-link:hover { opacity: 0.6; }
+
+        .key-lesson {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            border-top: 4px solid var(--text);
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .key-lesson h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .key-lesson p { margin: 0; color: var(--text-subtle); }
+
+        @media (min-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+            .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <a href="/case-study" class="back-link">
+                <i data-lucide="arrow-left" width="20" height="20"></i>
+                Back to Portfolio
+            </a>
+
+            <header class="hero">
+                <h1>From Zero to Industry-Leading: Transforming Cloudflare's Documentation</h1>
+                <p class="hero-description">Building an award-winning open-source documentation platform and team from the ground up</p>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Role</div>
+                    <div class="stat-value">Sr Director</div>
+                    <div class="stat-subtitle">Head of Product Content</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Timeline</div>
+                    <div class="stat-value">2020 - Present</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Team Size</div>
+                    <div class="stat-value">0 → 30+</div>
+                    <div class="stat-subtitle">FTEs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Impact</div>
+                    <div class="stat-value">80-100</div>
+                    <div class="stat-subtitle">Contributors/Month</div>
+                </div>
+            </div>
+
+            <div class="meta-bar">
+                <div class="meta-item">
+                    <div class="meta-label">Monthly Visits</div>
+                    <div class="meta-value">5M+ developers</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Active Contributors</div>
+                    <div class="meta-value">100+</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Recognition</div>
+                    <div class="meta-value">2025 DevPortal Awards Winner</div>
+                </div>
+            </div>
+
+            <section class="section">
+                <h2>The Challenge</h2>
+                <h3>Building a Content Foundation</h3>
+                <p>When I joined Cloudflare in 2020, the company recognized that documentation would be a critical part of the customer journey. As Cloudflare scaled rapidly, leadership wanted to invest in content as a strategic asset.</p>
+                <p>At the time:</p>
+                <ul>
+                    <li><strong>No dedicated team:</strong> Documentation was managed ad-hoc across product teams</li>
+                    <li><strong>No formal process:</strong> No established workflows for creating, reviewing, or maintaining content</li>
+                    <li><strong>Limited coverage:</strong> Many products lacked comprehensive documentation</li>
+                </ul>
+                <p>I joined to build a content organization that would treat documentation as a product—one that enables customer success and reflects Cloudflare's commitment to developer experience.</p>
+            </section>
+
+            <section class="section">
+                <h2>The Strategy</h2>
+                <h3>Content as a Product: A New Paradigm</h3>
+                <p>I developed a comprehensive vision centered on one core principle: <strong>treat content as a product, not a byproduct</strong>. This meant:</p>
+
+                <div class="pillars-grid">
+                    <div class="pillar-card">
+                        <div class="pillar-number">1</div>
+                        <h4>Open-source first</h4>
+                        <p>Leverage community expertise and transparency</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-number">2</div>
+                        <h4>Developer-centric</h4>
+                        <p>Make docs a developer tool, not just reference material</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-number">3</div>
+                        <h4>Quality at scale</h4>
+                        <p>Build systems that maintain quality as we grow</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-number">4</div>
+                        <h4>Team investment</h4>
+                        <p>Hire specialists who understand both technology and user experience</p>
+                    </div>
+                </div>
+
+                <p>I published our vision publicly to align stakeholders and build momentum:</p>
+                <a href="https://blog.cloudflare.com/content-as-a-product/" class="external-link">
+                    Read: Content as a Product <i data-lucide="external-link"></i>
+                </a>
+            </section>
+
+            <section class="section">
+                <h2>Implementation</h2>
+                <h3>Building From Zero: Team, Tools, and Culture</h3>
+
+                <ul class="timeline-list">
+                    <li><strong>2020-2021:</strong> Established vision and hired first content strategists and technical writers. Built foundational processes for content creation and review.</li>
+                    <li><strong>2022-2023:</strong> Scaled team to 15+ writers and strategists. Created comprehensive documentation coverage for 80+ products. Launched contributor program.</li>
+                    <li><strong>2024:</strong> Hired first dedicated documentation engineer. Transformed docs into a true developer tool integrated with Cloudflare products. Team grows to 30+ FTEs.</li>
+                    <li><strong>2025:</strong> Leading AI transformation—evolving writer roles, integrating AI tooling, reimagining content management for the AI era.</li>
+                </ul>
+
+                <p>The engineering hire in 2024 was particularly transformative. This enabled us to:</p>
+                <ul>
+                    <li>Build docs infrastructure using Cloudflare's own products (eating our own dog food)</li>
+                    <li>Create automated workflows for content deployment and quality checks</li>
+                    <li>Develop innovative features that turned docs into an interactive developer tool</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p>The impact of this technical investment was documented by the team: <a href="https://blog.cloudflare.com/open-source-all-the-way-down-upgrading-our-developer-documentation/" class="external-link">Engineering Deep Dive <i data-lucide="external-link"></i></a></p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Results &amp; Impact</h2>
+
+                <div class="awards-section">
+                    <div class="awards-label">Recognition</div>
+                    <div class="awards-title">2025 DevPortal Awards Winner - Best Unified Enterprise Developer Portal</div>
+                    <a href="https://devportalawards.org/winners" class="external-link">View Awards <i data-lucide="external-link"></i></a>
+                </div>
+
+                <h3>Quantifiable Outcomes</h3>
+                <ul>
+                    <li><strong>Team Growth:</strong> Built organization from 0 to 30+ FTEs, including engineers, writers, and strategists</li>
+                    <li><strong>Community Scale:</strong> 80-100 contributors per month—a mix of repeat contributors and new community members</li>
+                    <li><strong>Repository Success:</strong> Cloudflare Docs became one of the most popular repos in the entire organization</li>
+                    <li><strong>Developer Reach:</strong> Documentation serves 5M+ monthly developer visits</li>
+                    <li><strong>Product Integration:</strong> Docs became integral part of developer experience, not just reference</li>
+                </ul>
+
+                <h3>Strategic Impact</h3>
+                <ul>
+                    <li>Enabled faster product launches with day-one documentation readiness</li>
+                    <li>Reduced support burden by empowering developers with comprehensive, searchable content</li>
+                    <li>Created culture where content quality is a competitive advantage</li>
+                    <li>Established open-source documentation as industry best practice</li>
+                </ul>
+            <div class="key-lesson">
+                <h3>Key Leadership Lesson</h3>
+                <p>The most impactful transformation isn't just about technology or process—it's about changing how an organization values and invests in content. By treating documentation as a product with its own engineering resources, we didn't just improve docs; we fundamentally changed how Cloudflare ships products.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

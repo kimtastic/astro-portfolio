@@ -1,7 +1,5 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 ---
 
 <!DOCTYPE html>
@@ -9,551 +7,613 @@ import Footer from '../components/Footer.astro';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kim Jeske - Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Kim Jeske | Senior leader focused on product and customer experiences</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Starlight-inspired Theme */
         :root {
-            --color-dark-bg: #171820;
-            --color-dark-card: #23262f;
-            --color-border: #363a4f;
-            --color-lavender: #A78BFA;
-            --color-lavender-dark: #8B5CF6;
-            --color-yellow-accent: #FBBF24;
-            --color-text-light: #E5E7EB;
-            --color-text-dark: #9CA3AF;
-            --font-sans: 'Inter', sans-serif;
+            --page-bg: #fcfafa;
+            --frame-bg: #e7e5df;
+            --card-bg: #ffffff;
+            --card-bg-subtle: #ffffffe6;
+            --text: #202124;
+            --text-subtle: #666;
+            --text-muted: #8a857e;
+            --border: #dfddd7;
+            --button-bg: #111;
+            --button-text: #fff;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
+        * { box-sizing: border-box; }
+
+        html { background: var(--frame-bg); }
+
         body {
-            background-color: var(--color-dark-bg);
-            color: var(--color-text-light);
-            font-family: var(--font-sans);
+            background: var(--page-bg);
+            color: var(--text);
+            font-family: var(--font-body);
             margin: 0;
             line-height: 1.6;
             font-size: 16px;
+            min-height: 100vh;
         }
 
-        /* Layout */
         .container {
             max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
         }
 
-        main {
-            padding-top: 5rem; /* Header height */
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
         }
 
-        section {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-        }
+        main { padding-top: 2rem; }
+        section { padding: 5rem 0; }
 
         /* Header */
         .site-header {
-            background-color: rgba(23, 24, 32, 0.8);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            border-bottom: 1px solid var(--color-border);
+            background: var(--page-bg);
+            border-bottom: 1px solid var(--border);
         }
 
-        .site-header .header-content {
+        .header-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+            padding: 1.25rem 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        .site-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-text-light);
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text);
             text-decoration: none;
+            letter-spacing: -0.03em;
         }
 
-        .main-nav {
-            display: none;
-        }
+        .main-nav { display: none; gap: 2.5rem; }
 
         .main-nav a {
-            color: var(--color-text-dark);
+            color: var(--text-subtle);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.9375rem;
             transition: color 0.3s ease;
         }
 
-        .main-nav a:hover {
-            color: var(--color-lavender);
-        }
+        .main-nav a:hover { color: var(--text); }
 
         .mobile-menu-button {
             background: none;
-            border: none;
-            color: var(--color-text-light);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--text);
             cursor: pointer;
+            display: flex;
+            padding: 0.5rem;
         }
-        
+
         .mobile-menu {
             display: none;
             padding: 0 1.5rem 1rem;
         }
 
-        .mobile-menu.is-open {
-            display: block;
-        }
-        
+        .mobile-menu.is-open { display: block; }
+
         .mobile-menu a {
             display: block;
             padding: 0.5rem 0;
-            color: var(--color-text-dark);
+            color: var(--text-subtle);
             text-decoration: none;
             font-weight: 500;
         }
 
-        /* Buttons */
-        .button {
-            display: inline-block;
-            font-weight: 700;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .button-primary {
-            background-color: var(--color-lavender);
-            color: white;
-        }
-
-        .button-primary:hover {
-            background-color: var(--color-lavender-dark);
-        }
-
-        .button-secondary {
-            background-color: var(--color-dark-card);
-            color: var(--color-text-light);
-        }
-
-        .button-secondary:hover {
-            background-color: #363a4f;
-        }
-
-        /* Hero Section */
+        /* Hero */
         .hero {
             text-align: center;
-            padding-top: 6rem;
-            padding-bottom: 8rem;
+            padding: 6rem 0 2rem;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            max-width: 36rem;
-            margin-left: auto;
-            margin-right: auto;
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            margin: 0 0 1rem;
+            line-height: 1.05;
         }
 
-        .hero p {
+        .hero .subtitle {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            color: var(--text);
+            margin: 0 0 0.75rem;
+        }
+
+        .hero .tagline {
             font-size: 1.125rem;
-            color: var(--color-text-dark);
-            margin-bottom: 2rem;
-            max-width: 48rem;
-            margin-left: auto;
-            margin-right: auto;
+            color: var(--text-muted);
+            max-width: 42rem;
+            margin: 0 auto;
         }
-        .hero .highlight-lavender { color: var(--color-lavender); }
-        .hero .highlight-yellow { color: var(--color-yellow-accent); }
-        .hero-actions { display: flex; justify-content: center; gap: 1rem; }
 
-        /* About Section */
-        .about-section { background-color: var(--color-dark-card); }
-        .about-grid { display: grid; gap: 3rem; align-items: center; }
-        .about-grid img { border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; }
-        .about-content h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
-        .about-content p { color: var(--color-text-dark); margin-bottom: 1rem; }
-        .skills-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .skill-tag { background-color: #363a4f; color: var(--color-text-light); font-size: 0.875rem; font-weight: 500; padding: 0.25rem 0.75rem; border-radius: 9999px; }
+        /* Section headings */
+        .section-heading {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin: 0 0 0.5rem;
+            text-align: center;
+        }
 
-        /* Timeline Section */
-        .timeline-container { max-width: 48rem; margin: 0 auto; }
-        .timeline-heading { text-align: center; font-size: 2rem; font-weight: 700; margin-bottom: 4rem; }
-        .timeline-wrapper { position: relative; }
-        .timeline-line { position: absolute; left: 1rem; top: 0; height: 100%; width: 2px; background-color: var(--color-border); }
-        .timeline-item { margin-bottom: 3rem; padding-left: 3rem; position: relative; }
-        .timeline-item:last-child { margin-bottom: 0; }
-        .timeline-icon { position: absolute; left: 0; top: 0.25rem; width: 2rem; height: 2rem; background-color: var(--color-lavender); border-radius: 50%; display: flex; align-items: center; justify-content: center; ring: 8px; box-shadow: 0 0 0 8px var(--color-dark-bg); }
-        .timeline-icon i { color: white; width: 1rem; height: 1rem; }
-        .timeline-card { background-color: var(--color-dark-card); padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .timeline-date { font-size: 0.875rem; font-weight: 600; color: var(--color-yellow-accent); margin-bottom: 0.25rem; }
-        .timeline-title { font-size: 1.25rem; font-weight: 700; color: var(--color-text-light); }
-        .timeline-subtitle { color: var(--color-text-dark); margin-bottom: 0.5rem; }
-        .timeline-description { font-size: 0.875rem; color: var(--color-text-dark); }
+        .section-subheading {
+            color: var(--text-subtle);
+            text-align: center;
+            max-width: 42rem;
+            margin: 0 auto 3rem;
+            font-size: 1.0625rem;
+        }
 
-        /* Content Section */
-        .content-section { background-color: var(--color-dark-card); }
-        .content-heading { text-align: center; font-size: 2rem; font-weight: 700; margin-bottom: 3rem; }
-        .content-list { max-width: 48rem; margin: 0 auto; display: grid; gap: 1.5rem; }
-        .content-item-link { display: block; background-color: var(--color-dark-bg); padding: 1.5rem; border-radius: 0.5rem; text-decoration: none; display: flex; align-items: center; gap: 1.5rem; transition: background-color 0.3s ease; }
-        .content-item-link:hover { background-color: #363a4f; }
-        .content-icon-wrapper { flex-shrink: 0; width: 3rem; height: 3rem; background-color: rgba(167, 139, 250, 0.2); color: var(--color-lavender); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; }
-        .content-icon-wrapper i { width: 1.5rem; height: 1.5rem; }
-        .content-text .type { font-size: 0.875rem; color: var(--color-yellow-accent); }
-        .content-text .title { font-size: 1.125rem; font-weight: 700; color: var(--color-text-light); }
-        .content-text .subtitle { color: var(--color-text-dark); }
-        .content-arrow { color: var(--color-lavender); margin-left: auto; opacity: 0; transition: opacity 0.3s ease; }
-        .content-item-link:hover .content-arrow { opacity: 1; }
+        /* Strategic Impact */
+        .impact-grid { display: grid; gap: 1.5rem; }
 
-        /* Contact Section */
-        .contact-section { text-align: center; }
-        .contact-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
-        .contact-section p { color: var(--color-text-dark); margin-bottom: 2rem; max-width: 42rem; margin-left: auto; margin-right: auto; }
-        .contact-buttons { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; }
-        .contact-buttons a { width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .impact-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .impact-role {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem;
+        }
+
+        .impact-company {
+            color: var(--text-subtle);
+            font-weight: 500;
+            margin: 0 0 0.25rem;
+        }
+
+        .impact-dates {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin: 0 0 1rem;
+        }
+
+        .impact-card ul { margin: 0; padding: 0; list-style: none; }
+
+        .impact-card li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-subtle);
+        }
+
+        .impact-card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6em;
+            width: 5px;
+            height: 5px;
+            background: var(--text);
+            border-radius: 50%;
+        }
+
+        .impact-note {
+            margin-top: 0.75rem;
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Recognition */
+        .recognition-section { background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+        .recognition-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 48rem; margin: 0 auto; }
+
+        .recognition-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+
+        .recognition-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .recognition-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin: 0 0 0.5rem;
+        }
+
+        .recognition-card p { color: var(--text-subtle); margin: 0; }
+
+        /* Case Studies */
+        .case-studies-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+
+        .case-study-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            border-color: #ccc;
+        }
+
+        .case-study-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: #f4f2ef;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            margin-bottom: 0.75rem;
+        }
+
+        .case-study-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.5rem;
+        }
+
+        .case-study-card p {
+            color: var(--text-subtle);
+            margin: 0 0 1rem;
+            font-size: 0.9375rem;
+        }
+
+        .case-study-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9375rem;
+            text-decoration: none;
+        }
+
+        .case-study-card:hover .case-study-link { opacity: 0.7; }
+
+        /* Speaking & Writing */
+        .content-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .content-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+            aspect-ratio: 1;
+        }
+
+        .content-item:hover { border-color: #bbb; }
+
+        .content-type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .content-item h3 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.25rem;
+            line-height: 1.3;
+        }
+
+        .content-meta {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        /* Contact */
+        .contact-section { background: var(--card-bg); border-top: 1px solid var(--border); }
+
+        .contact-section .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .contact-section h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin: 0 0 0.25rem;
+        }
+
+        .contact-section p {
+            color: var(--text-subtle);
+            margin: 0;
+            font-size: 1.0625rem;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--button-text);
+            font-weight: 600;
+            padding: 0.875rem 2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-button:hover { opacity: 0.85; }
 
         /* Footer */
-        .site-footer { border-top: 1px solid var(--color-border); }
-        .footer-content { display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding-top: 1.5rem; padding-bottom: 1.5rem; }
-        .footer-content p { color: var(--color-text-dark); font-size: 0.875rem; }
-        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
-        .social-links a { color: var(--color-text-dark); transition: color 0.3s ease; }
-        .social-links a:hover { color: var(--color-lavender); }
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+        }
 
-        /* Responsive Styles */
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-content p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
         @media (min-width: 768px) {
-            .main-nav { display: flex; gap: 2rem; }
+            .main-nav { display: flex; }
             .mobile-menu-button { display: none; }
-            .hero h1 { font-size: 3.75rem; }
-            .hero p { font-size: 1.25rem; }
-            .about-grid { grid-template-columns: repeat(5, 1fr); }
-            .about-grid .about-image { grid-column: span 2 / span 2; }
-            .about-grid .about-content { grid-column: span 3 / span 3; }
-            .contact-buttons { flex-direction: row; }
-            .contact-buttons a { width: auto; }
-            .footer-content { flex-direction: row; }
-            .social-links { margin-top: 0; }
+            .impact-grid { grid-template-columns: 1fr 1fr; }
+            .case-studies-grid { grid-template-columns: 1fr 1fr; }
+            .footer-content { flex-direction: row; justify-content: space-between; }
         }
     </style>
 </head>
-<body class="antialiased">
-
-    <!-- Header & Navigation -->
+<body>
     <header class="site-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="site-title">Kim Jeske</a>
-                <nav class="main-nav">
-                    <a href="#about">About</a>
-                    <a href="#timeline">Timeline</a>
-                    <a href="#content">Content</a>
-                    <a href="#contact">Contact</a>
-                </nav>
-                <a href="#contact" class="button button-primary" style="display: none;" id="desktop-cta">Get in Touch</a>
-                <button id="mobile-menu-button" class="mobile-menu-button">
-                    <i data-lucide="menu"></i>
-                </button>
-            </div>
+        <div class="header-content">
+            <a href="/" class="logo">Kim Jeske</a>
+            <nav class="main-nav">
+                <a href="/about">About</a>
+                <a href="/case-study">Case Studies</a>
+                <a href="#speaking-writing">Speaking &amp; Writing</a>
+            </nav>
+            <button id="mobile-menu-button" class="mobile-menu-button">
+                <i data-lucide="menu" width="20" height="20"></i>
+            </button>
         </div>
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu">
-            <a href="#about">About</a>
-            <a href="#timeline">Timeline</a>
-            <a href="#content">Content</a>
-            <a href="#contact">Contact</a>
-            <a href="#contact" class="button button-primary" style="margin-top: 1rem;">Get in Touch</a>
+            <a href="/about">About</a>
+            <a href="/case-study">Case Studies</a>
+            <a href="#speaking-writing">Speaking &amp; Writing</a>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero">
+        <!-- Hero -->
+        <section class="hero">
             <div class="container">
-                <h1>Content Leader and Storyteller</h1>
-                <p>
-                    I lead Cloudflare's Product Content Experience team with a mission to make complex technology feel clear, approachable, and empowering. My passion lies at the intersection of <span class="highlight-lavender">user-centered content</span> and <span class="highlight-yellow">technology</span>.
-                </p>
-                <div class="hero-actions">
-                    <a href="https://docs.crochetly.com/" class="button button-primary">My Documentation Site</a>
-                    <a href="https://www.linkedin.com/in/kimberlyjeske/" class="button button-secondary">CV</a>
+                <p class="subtitle">Senior leader focused on product and customer experiences</p>
+                <p class="tagline">I believe great leadership starts with emotional intelligence and radical candor. I care deeply about investing in careers and creating an environment where everyone can do their best work. My approach combines technical excellence with customer-first thinking—building cross-functional teams that ship iteratively and measure what matters.</p>
+            </div>
+        </section>
+
+        <!-- What I Do -->
+        <section>
+            <div class="container">
+                <h2 class="section-heading">What I Do</h2>
+                <p class="section-subheading">In-depth case studies about my key projects and their impact</p>
+
+                <div class="case-studies-grid">
+                    <a href="/case-study/cloudflare-docs" class="case-study-card">
+                        <span class="case-study-tag">2020 - Present</span>
+                        <h3>Transforming Cloudflare's Documentation</h3>
+                        <p>Building an award-winning documentation platform from zero</p>
+                        <span class="case-study-link">
+                            Read case study <i data-lucide="arrow-right" width="16" height="16"></i>
+                        </span>
+                    </a>
+                    <a href="/case-study" class="case-study-card" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                        <span style="font-family: var(--font-heading); font-size: 1.125rem;">
+                            View all case studies <i data-lucide="arrow-right" width="18" height="18" style="vertical-align: middle; margin-left: 0.25rem;"></i>
+                        </span>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="about-section">
+        <!-- Strategic Impact -->
+        <section id="case-studies">
             <div class="container">
-                <div class="about-grid">
-                    <div class="about-image">
-                        <img src="/KimJeske.jpg" alt="Kim Jeske's Photo" loading="lazy">
+                <h2 class="section-heading">Strategic Impact</h2>
+                <p class="section-subheading">Building and leading high-performing teams at scale</p>
+
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <h3 class="impact-role">Senior Director, Head of Product Content and Content Engineering</h3>
+                        <p class="impact-company">Cloudflare</p>
+                        <p class="impact-dates">2020 - 2026</p>
+                        <ul>
+                            <li>Led team of 30+ tech writers, UX content strategists, and engineers</li>
+                            <li>Scaled docs infrastructure to serve 5M+ developers monthly</li>
+                            <li>Transformed docs into a developer tool using Cloudflare products</li>
+                        </ul>
                     </div>
-                    <div class="about-content">
-                        <h2>About Me</h2>
-                        <p>
-                            Hello! I'm Kim Jeske. As a leader in technical communication, I am passionate about creating user-centered content that simplifies complex information. I started my journey as a technical writer and have enjoyed leading across technical documentation, UX content, content design, and information architecture. I love turning complex problems into simple, beautiful, and intuitive content experiences.
-                        </p>
-                        <p>
-                            When I'm not focused on content, you'll find me reading a book, crocheting, or enjoying the outdoors.
-                        </p>
-                        <div class="skills-list">
-                            <span class="skill-tag">Markdown</span>
-                            <span class="skill-tag">XML/DITA</span>
-                            <span class="skill-tag">GitHub</span>
-                            <span class="skill-tag">Visual Studio Code</span>
-                            <span class="skill-tag">CI/CD Documentation</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Career Journey Section -->
-        <section id="timeline">
-            <div class="container">
-                <div class="timeline-container">
-                    <h2 class="timeline-heading">Experience</h2>
-                    <div class="timeline-wrapper">
-                        <div class="timeline-line"></div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i data-lucide="briefcase"></i></div>
-                            <div class="timeline-card">
-                                <p class="timeline-date">2020 - Present</p>
-                                <h3 class="timeline-title">Senior Director, Head of Product Content Experience</h3>
-                                <p class="timeline-subtitle">Cloudflare</p>
-                                <p class="timeline-description">I established the technical writing and UX content content, hiring a highly impactful team of user-focused, data-driven writers and strategists.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i data-lucide="briefcase"></i></div>
-                            <div class="timeline-card">
-                                <p class="timeline-date">2018-2020</p>
-                                <h3 class="timeline-title">eCommerce Product Owner</h3>
-                                <p class="timeline-subtitle">National Instruments</p>
-                                <p class="timeline-description">I defined, prioritized, and drove the development of digital products and features that support an online shopping experience.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i data-lucide="briefcase"></i></div>
-                            <div class="timeline-card">
-                                <p class="timeline-date">2016 - 2018</p>
-                                <h3 class="timeline-title">Group Manager</h3>
-                                <p class="timeline-subtitle">National Instruments</p>
-                                <p class="timeline-description">I oversaw, refined, and executed technical communication policies for tech writers and their projects related to the Semiconductor Test System.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i data-lucide="briefcase"></i></div>
-                            <div class="timeline-card">
-                                <p class="timeline-date">2012 - 2016</p>
-                                <h3 class="timeline-title">Technical Writer</h3>
-                                <p class="timeline-subtitle">National Instruments</p>
-                                <p class="timeline-description">I documented programming APIs, hardware specifications, getting started guides, and driver software.</p>
-                            </div>
-                        </div>
-
+                    <div class="impact-card">
+                        <h3 class="impact-role">Group Manager, Technical Communication</h3>
+                        <p class="impact-company">National Instruments</p>
+                        <p class="impact-dates">2016 - 2018</p>
+                        <ul>
+                            <li>Led team of technical writers supporting Semiconductor Test System</li>
+                            <li>Established technical communication policies and streamlined documentation workflows</li>
+                        </ul>
+                        <p class="impact-note">Earlier career included progressive technical writing roles at National Instruments.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-		<!-- Education Section -->
-        <section id="timeline">
+        <!-- Recognition -->
+        <section class="recognition-section">
             <div class="container">
-                <div class="timeline-container">
-                    <h2 class="timeline-heading">Education</h2>
-                    <div class="timeline-wrapper">
-                        <div class="timeline-line"></div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i data-lucide="graduation-cap"></i></div>
-                            <div class="timeline-card">
-                                <p class="timeline-date">2012</p>
-                                <h3 class="timeline-title">M.A. in Technical Communication</h3>
-                                <p class="timeline-subtitle">Texas State University</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i data-lucide="graduation-cap"></i></div>
-                            <div class="timeline-card">
-                                <p class="timeline-date">2003</p>
-                                <h3 class="timeline-title">B.A. in Communications</h3>
-                                <p class="timeline-subtitle">Texas A&M University</p>
-                            </div>
-                        </div>
+                <h2 class="section-heading">Awards &amp; Recognition</h2>
+                <div class="recognition-grid">
+                    <div class="recognition-card">
+                        <div class="recognition-badge">Winner</div>
+                        <h3>2025 DevPortal Awards</h3>
+                        <p>Cloudflare Docs — Best Unified Enterprise Developer Portal</p>
+                    </div>
+                    <div class="recognition-card">
+                        <div class="recognition-badge">Extraordinary Award</div>
+                        <h3>Cloudflare</h3>
+                        <p>Recognized for exceptional contributions and leadership</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Content Section -->
-        <section id="content" class="content-section">
+        <!-- Speaking & Writing -->
+        <section id="speaking-writing" class="recognition-section">
             <div class="container">
-                <h2 class="content-heading">Podcasts, Webinars, Conferences, and Articles</h2>
+                <h2 class="section-heading">Speaking &amp; Writing</h2>
+                <p class="section-subheading" style="margin-bottom: 2rem;">Talks, webinars, and articles about strategy and leadership</p>
+
                 <div class="content-list">
-                    <a href="https://www.stateofdocs.com/2025/" class="content-item-link">
-                        <div class="content-icon-wrapper"><i data-lucide="file-text"></i></div>
-                        <div class="content-text">
-                            <p class="type">Interview</p>
-                            <h3 class="title">State of Docs Report 2025</h3>
-                            <p class="subtitle">stateofdocs.com, 2025</p>
-                        </div>
-                        <div class="content-arrow"><i data-lucide="arrow-right"></i></div>
+                    <a href="https://www.youtube.com/watch?v=IoRKCXbfGvQ" class="content-item" target="_blank">
+                        <div class="content-type">Webinar</div>
+                        <h3>Technical content is the product</h3>
+                        <p class="content-meta">The Content Wrangler · 2022</p>
                     </a>
-                    <a href="https://blog.cloudflare.com/open-source-all-the-way-down-upgrading-our-developer-documentation/" class="content-item-link">
-                        <div class="content-icon-wrapper"><i data-lucide="file-text"></i></div>
-                        <div class="content-text">
-                            <p class="type">Blog post</p>
-                            <h3 class="title">Open source all the way down: Upgrading our developer documentation</h3>
-                            <p class="subtitle">Cloudflare Blog, 2025</p>
-                        </div>
-                        <div class="content-arrow"><i data-lucide="arrow-right"></i></div>
+
+                    <a href="https://world.productledalliance.com/location/austin/" class="content-item" target="_blank">
+                        <div class="content-type">Conference</div>
+                        <h3>From first click to forever customer: The role of UX in product-led success</h3>
+                        <p class="content-meta">Product Led Alliance Austin · 2025</p>
                     </a>
-                    <a href="https://world.productledalliance.com/location/austin/speaker/kimberlyjeske" class="content-item-link">
-                        <div class="content-icon-wrapper"><i data-lucide="presentation"></i></div>
-                        <div class="content-text">
-                            <p class="type">Conference Talk</p>
-                            <h3 class="title">From first click to forever customer - The role of UX in product-led success</h3>
-                            <p class="subtitle">Speaker at Product-led Alliance, 2025</p>
-                        </div>
-                        <div class="content-arrow"><i data-lucide="arrow-right"></i></div>
+
+                    <a href="https://blog.cloudflare.com/content-as-a-product/" class="content-item" target="_blank">
+                        <div class="content-type">Blog</div>
+                        <h3>How we treat content as a product</h3>
+                        <p class="content-meta">Cloudflare Blog · 2022</p>
                     </a>
-                    <a href="https://www.youtube.com/watch?v=IoRKCXbfGvQ" class="content-item-link">
-                        <div class="content-icon-wrapper"><i data-lucide="mic"></i></div>
-                        <div class="content-text">
-                            <p class="type">Webinar</p>
-                            <h3 class="title">Technical content is the product with Kim Jeske</h3>
-                            <p class="subtitle">Content Wrangler, 2022</p>
-                        </div>
-                        <div class="content-arrow"><i data-lucide="arrow-right"></i></div>
-                    </a>
-					<a href="https://blog.cloudflare.com/content-as-a-product/" class="content-item-link">
-                        <div class="content-icon-wrapper"><i data-lucide="file-text"></i></div>
-                        <div class="content-text">
-                            <p class="type">Blog post</p>
-                            <h3 class="title">How we treat content as a product</h3>
-                            <p class="subtitle">Cloudflare Blog, 2022</p>
-                        </div>
-                        <div class="content-arrow"><i data-lucide="arrow-right"></i></div>
+
+                    <a href="https://blog.cloudflare.com/open-source-all-the-way-down-upgrading-our-developer-documentation/" class="content-item" target="_blank">
+                        <div class="content-type">Blog</div>
+                        <h3>Open source all the way down: Upgrading our developer documentation</h3>
+                        <p class="content-meta">Cloudflare Blog · 2025</p>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section">
+        <!-- Let's Connect -->
+        <section class="contact-section">
             <div class="container">
-                <h2>Let's Connect</h2>
-                <p>
-                    I'm always open to new opportunities and collaborations. Feel free to connect with me on LinkedIn or check out my work on GitHub.
-                </p>
-                <div class="contact-buttons">
-                    <a href="https://www.linkedin.com/in/kimberlyjeske/" class="button button-primary">
-                        <i data-lucide="linkedin"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/kimtastic" class="button button-secondary">
-                        <i data-lucide="github"></i>
-                        <span>GitHub</span>
-                    </a>
+                <div>
+                    <h2>Let's Connect</h2>
+                    <p>I'm always open to discussing new opportunities and collaborations.</p>
                 </div>
+                <a href="https://www.linkedin.com/in/kimberlyjeske/" class="contact-button" target="_blank">
+                    <i data-lucide="linkedin" width="20" height="20"></i>
+                    Connect on LinkedIn
+                </a>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2025 Kim Jeske. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="https://github.com/kimtastic"><i data-lucide="github"></i></a>
-                    <a href="https://www.linkedin.com/in/kimberlyjeske/"><i data-lucide="linkedin"></i></a>
-                </div>
+                <p>&copy; 2026 Kim Jeske. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // TypeScript: declare lucide on window
-        // @ts-ignore
-        declare global {
-            interface Window {
-                lucide?: any;
-            }
-        }
         document.addEventListener('DOMContentLoaded', () => {
-            // Lucide Icons
             if (window.lucide && typeof window.lucide.createIcons === 'function') {
                 window.lucide.createIcons();
             }
 
-            // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const desktopCtaButton = document.getElementById('desktop-cta');
 
             if (mobileMenuButton && mobileMenu) {
                 mobileMenuButton.addEventListener('click', () => {
                     mobileMenu.classList.toggle('is-open');
                 });
             }
-            
-            // Show desktop CTA on larger screens
-            if (window.innerWidth >= 768 && desktopCtaButton) {
-                desktopCtaButton.style.display = 'inline-block';
-            }
-            window.addEventListener('resize', () => {
-                 if (window.innerWidth >= 768 && desktopCtaButton) {
-                    desktopCtaButton.style.display = 'inline-block';
-                } else if(desktopCtaButton) {
-                    desktopCtaButton.style.display = 'none';
-                }
-            });
 
-            // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    const self = e.currentTarget as HTMLAnchorElement;
-                    // Allow normal link behavior for non-section links
-                    if (self.getAttribute('href') === '#') {
-                        e.preventDefault();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        return;
-                    }
-                    
-                    const targetId = self.getAttribute('href');
-                    let targetElement: Element | null = null;
-                    if (targetId) {
-                        targetElement = document.querySelector(targetId);
-                    }
-
-                    if (targetElement) {
-                        e.preventDefault();
-                        // Close mobile menu on link click
-                        if (mobileMenu && mobileMenu.classList.contains('is-open')) {
-                            mobileMenu.classList.remove('is-open');
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            if (mobileMenu && mobileMenu.classList.contains('is-open')) {
+                                mobileMenu.classList.remove('is-open');
+                            }
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
                         }
-                        
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
                     }
                 });
             });
@@ -561,4 +621,3 @@ import Footer from '../components/Footer.astro';
     </script>
 </body>
 </html>
-

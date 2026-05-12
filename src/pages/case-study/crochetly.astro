@@ -1,0 +1,392 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Documentation Transformation | Kim Jeske</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --page-bg: #fcfafa;
+            --frame-bg: #e7e5df;
+            --card-bg: #ffffff;
+            --text: #202124;
+            --text-subtle: #666;
+            --text-muted: #8a857e;
+            --border: #dfddd7;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { background: var(--frame-bg); }
+
+        body {
+            background: var(--page-bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            margin: 0;
+            line-height: 1.7;
+            font-size: 16px;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+        main { padding-top: 6rem; padding-bottom: 5rem; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-subtle);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        .hero { text-align: center; margin-bottom: 4rem; }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin: 0 0 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-subtle);
+            max-width: 36rem;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            aspect-ratio: 1;
+            transition: border-color 0.3s ease;
+        }
+
+        .stat-card:hover { border-color: #bbb; }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-family: var(--font-heading);
+            font-size: 1.375rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            color: var(--text);
+        }
+
+        .section { margin-bottom: 4rem; max-width: 720px; margin-left: auto; margin-right: auto; }
+
+        .section h2 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-subtle);
+        }
+
+        .section p { color: var(--text-subtle); margin-bottom: 1rem; }
+        .section ul { color: var(--text-subtle); margin-bottom: 1rem; padding-left: 1.5rem; }
+        .section li { margin-bottom: 0.5rem; }
+        .section li strong { color: var(--text); }
+
+        .highlight-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--text);
+            padding: 1.5rem;
+            margin: 2rem auto;
+            border-radius: 0 1rem 1rem 0;
+            max-width: 720px;
+        }
+
+        .highlight-box p { margin: 0; font-style: italic; color: var(--text); }
+
+        .external-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+            transition: opacity 0.3s ease;
+        }
+
+        .external-link:hover { opacity: 0.6; }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1.5rem auto;
+            max-width: 720px;
+        }
+
+        .tech-tag {
+            background: #f4f2ef;
+            color: var(--text-subtle);
+            padding: 0.375rem 0.875rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .built-items { display: grid; gap: 1.5rem; margin: 2rem 0; }
+
+        .built-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 1rem;
+        }
+
+        .built-item h4 {
+            font-family: var(--font-heading);
+            font-size: 1.125rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .built-item p { margin: 0; font-size: 0.9375rem; color: var(--text-subtle); }
+
+        .built-item strong { color: var(--text); }
+
+        .quote-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+
+        .quote-box p { margin: 0; font-size: 1.0625rem; font-style: italic; color: var(--text); }
+        .quote-box strong { color: var(--text); }
+
+        .skills-grid { display: grid; gap: 1rem; margin: 1.5rem 0; }
+
+        .skill-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .skill-item i { color: var(--text); width: 1.25rem; height: 1.25rem; }
+        .skill-item span { color: var(--text-subtle); }
+        .skill-item strong { color: var(--text); }
+
+        @media (min-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <a href="/case-study" class="back-link">
+                <i data-lucide="arrow-left" width="20" height="20"></i>
+                Back to Portfolio
+            </a>
+
+            <header class="hero">
+                <h1>AI Documentation Transformation</h1>
+                <p class="hero-description">How hands-on R&D became the proof-of-concept for driving organizational AI adoption</p>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Type</div>
+                    <div class="stat-value">Strategic AI Initiative</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Timeline</div>
+                    <div class="stat-value">2024 - Present</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Scope</div>
+                    <div class="stat-value">Solo Project</div>
+                </div>
+            </div>
+
+            <section class="section">
+                <h2>The Opportunity</h2>
+                <h3>Why Build a Crochet Documentation Site?</h3>
+                <p>As documentation leaders navigate the AI transformation, I recognized a critical gap: <strong>we're making strategic decisions about AI integration without hands-on experience</strong>.</p>
+                <p>Rather than theorize from the sidelines, I built Crochetly.com as a real-world laboratory to answer fundamental questions:</p>
+                <ul>
+                    <li><strong>Can AI actually write good documentation?</strong> What's the quality threshold?</li>
+                    <li><strong>How do modern doc platforms work?</strong> What's changed since traditional CMS systems?</li>
+                    <li><strong>What does "interactive documentation" really mean?</strong> Custom components, not just static pages</li>
+                    <li><strong>How do you structure content for discoverability?</strong> Search, navigation, AI-readability</li>
+                    <li><strong>What's the operational reality?</strong> Deployment, maintenance, scaling</li>
+                </ul>
+
+                <h3>Why Crochet?</h3>
+                <p>Crochet is the perfect test case: complex enough to be interesting (stitches, patterns, techniques), personal enough to maintain authenticity (I actually crochet), and fragmented enough to add value (quality content scattered across ad-heavy blogs). Plus, the community needed it—no comprehensive, clean documentation resource existed.</p>
+            </section>
+
+            <section class="section">
+                <h2>The Approach</h2>
+                <h3>Building in Public: Technology &amp; Architecture</h3>
+                <p>I deliberately chose modern, production-grade tools to mirror real documentation platforms:</p>
+
+                <div class="tech-stack">
+                    <span class="tech-tag">Astro + Starlight</span>
+                    <span class="tech-tag">MDX</span>
+                    <span class="tech-tag">TypeScript</span>
+                    <span class="tech-tag">Custom Components</span>
+                    <span class="tech-tag">GitHub</span>
+                </div>
+
+                <p><strong>Key architectural decisions:</strong></p>
+                <ul>
+                    <li><strong>Astro + Starlight:</strong> Modern static site generator optimized for documentation—fast, SEO-friendly, component-based</li>
+                    <li><strong>MDX over Markdown:</strong> Enables custom interactive components within content</li>
+                    <li><strong>Open-source first:</strong> Public GitHub repo to enable community contributions</li>
+                    <li><strong>Component library:</strong> Built reusable elements (stitch library, yarn converter, pattern templates)</li>
+                    <li><strong>AI-assisted content:</strong> Used AI for initial content generation, then refined for accuracy and voice</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><a href="https://crochetly.com/" class="external-link">View Crochetly.com <i data-lucide="external-link"></i></a> &middot; <a href="https://github.com/kimtastic/crochetly" class="external-link">View on GitHub <i data-lucide="external-link"></i></a></p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>What I Built</h2>
+                <h3>Proving the Concept at Scale</h3>
+
+                <div class="built-items">
+                    <div class="built-item">
+                        <h4>Stitch Library &mdash; From 8 to 27</h4>
+                        <p>I started with just 8 basic stitches. Using AI-assisted content generation, I scaled the library to 27 stitches and techniques—all while maintaining consistent terminology, formatting, and voice. This became my proof point: <strong>AI can accelerate content creation by 5-10x</strong> when paired with human expertise.</p>
+                    </div>
+                    <div class="built-item">
+                        <h4>Interactive Components</h4>
+                        <p><strong>Yarn converter:</strong> Helping users translate between yarn weights and brands<br>
+                        <strong>Pattern templates:</strong> Structured formats users can customize<br>
+                        <strong>Search and filtering:</strong> Built-in search with proper indexing—critical for modern docs</p>
+                    </div>
+                </div>
+
+                <div class="quote-box">
+                    <p><strong>Why it mattered:</strong> These weren't just features—they were tangible examples I could bring to team discussions. "Look what I built in a weekend" became a powerful counter to "AI can't do X."</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Leadership Application</h2>
+                <h3>From Personal Experiment to Organizational Proof</h3>
+                <p><strong>The real value wasn't the site—it was using it as proof-of-concept for organizational change.</strong></p>
+
+                <h3>The Leadership Moment</h3>
+                <p>In team meetings, I started bringing my actual prompts, GitHub commits, and results. Not presentations about AI—real artifacts. "Here's what I wrote, here's what AI produced, here's what I refined." It shifted the conversation from theory to practice.</p>
+
+                <h3>Overcoming Resistance</h3>
+                <p>When writers were skeptical about AI, I didn't argue—I showed them. "Here's my commit history. Here's my prompt engineering. Here's the quality difference." Seeing a senior leader get hands-on made it safe for them to experiment too.</p>
+
+                <h3>Redefining Team Skills</h3>
+                <p>Based on what I'd learned, I reshaped hiring criteria and job requirements:</p>
+
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <i data-lucide="check"></i>
+                        <span>Added <strong>"prompt engineering"</strong> as a desired skill</span>
+                    </div>
+                    <div class="skill-item">
+                        <i data-lucide="check"></i>
+                        <span>Emphasized <strong>code literacy</strong> (Git, Markdown, component syntax)</span>
+                    </div>
+                    <div class="skill-item">
+                        <i data-lucide="check"></i>
+                        <span>Shifted role focus from <strong>"writing"</strong> to <strong>"content strategy + AI orchestration"</strong></span>
+                    </div>
+                </div>
+
+                <p>This project gave me the credibility to make those changes—and the evidence to back them up.</p>
+            </section>
+
+            <section class="section">
+                <h2>Business Impact</h2>
+                <h3>Organizational Outcomes at Cloudflare</h3>
+
+                <p><strong>Direct applications to my work:</strong></p>
+                <ul>
+                    <li><strong>AI integration strategy:</strong> I can make informed recommendations about where AI adds value vs. where human expertise is critical—because I've tested it myself</li>
+                    <li><strong>Platform decisions:</strong> Hands-on experience with Astro/Starlight directly influenced our evaluation of documentation platforms at Cloudflare</li>
+                    <li><strong>Team adoption:</strong> Successfully drove 100% team adoption of AI-assisted workflows by leading by example</li>
+                    <li><strong>Hiring &amp; skills:</strong> Reshaped job requirements organization-wide to include prompt engineering and code literacy</li>
+                    <li><strong>Velocity gains:</strong> Demonstrated 5-10x content creation velocity—validated before rolling out to team</li>
+                </ul>
+
+                <p><strong>Executive Influence:</strong></p>
+                <ul>
+                    <li>Can speak credibly about AI in documentation from hands-on experience—not just theory</li>
+                    <li>Demonstrated commitment to staying technical despite executive role</li>
+                    <li>Shows pattern of experimentation and learning, not just management</li>
+                    <li>Built tangible proof-of-concept that validates strategic recommendations</li>
+                </ul>
+            </section>
+
+            <div class="highlight-box">
+                <p><strong>Leadership Philosophy:</strong> The best leaders don't just direct—they demonstrate. You can't lead teams through AI transformation if you've never written a prompt, shipped a component, or debugged a deployment. This project keeps me credible, current, and effective.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>
