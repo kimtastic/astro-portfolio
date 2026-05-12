@@ -1,5 +1,4 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
 ---
 
 <!DOCTYPE html>
@@ -15,18 +14,18 @@ import BaseHead from '../components/BaseHead.astro';
             --page-bg: #fcfafa;
             --frame-bg: #e7e5df;
             --card-bg: #ffffff;
+            --card-bg-subtle: #ffffffe6;
             --text: #202124;
             --text-subtle: #666;
             --text-muted: #8a857e;
             --border: #dfddd7;
-            --button-bg: #111;
+            --button-bg: #000;
             --button-text: #fff;
             --font-heading: 'Space Grotesk', sans-serif;
             --font-body: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         * { box-sizing: border-box; }
-
         html { background: var(--frame-bg); }
 
         body {
@@ -34,7 +33,7 @@ import BaseHead from '../components/BaseHead.astro';
             color: var(--text);
             font-family: var(--font-body);
             margin: 0;
-            line-height: 1.7;
+            line-height: 1.6;
             font-size: 16px;
             min-height: 100vh;
         }
@@ -45,9 +44,105 @@ import BaseHead from '../components/BaseHead.astro';
             padding: 0 1.5rem;
         }
 
-        main {
-            padding-top: 6rem;
-            padding-bottom: 5rem;
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        main { padding-top: 2rem; }
+        section { padding: 5rem 0; }
+
+        /* Header */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(252, 250, 250, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+        }
+
+        .main-nav { display: none; align-items: center; gap: 2rem; }
+
+        .main-nav a {
+            color: var(--text-subtle);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a:hover { color: var(--text); }
+        .main-nav a.active { color: var(--text); }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--button-text);
+            font-weight: 600;
+            padding: 0.625rem 1.5rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            border: 1px solid var(--border);
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            background: #1a1a1a;
+            border-color: #999;
+        }
+
+        .mobile-menu-button {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            padding: 0 1.5rem 1rem;
+        }
+
+        .mobile-menu.is-open { display: block; }
+
+        .mobile-menu a {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--text-subtle);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Page header */
+        .page-header {
+            padding: 5rem 0 3rem;
         }
 
         .back-link {
@@ -57,51 +152,209 @@ import BaseHead from '../components/BaseHead.astro';
             color: var(--text-subtle);
             text-decoration: none;
             font-weight: 500;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             transition: color 0.3s ease;
         }
 
         .back-link:hover { color: var(--text); }
 
-        .page-header { margin-bottom: 3rem; }
-
         .page-header h1 {
             font-family: var(--font-heading);
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
             font-weight: 600;
             letter-spacing: -0.04em;
-            margin: 0 0 0.5rem;
+            margin: 0 0 0.75rem;
             line-height: 1.05;
         }
 
         .page-header .subtitle {
             color: var(--text-subtle);
-            font-size: 1.0625rem;
+            font-size: 1.125rem;
             margin: 0;
+            max-width: 36rem;
         }
 
-        .about-photo { float: left; width: 40%; margin: 0 2rem 1rem 0; }
+        /* Bio section */
+        .bio-grid {
+            display: grid;
+            gap: 2.5rem;
+            align-items: start;
+        }
 
-        .about-photo img {
-            width: 100%;
+        .about-photo {
             border-radius: 1rem;
+            width: 100%;
+            max-width: 300px;
             display: block;
             border: 1px solid var(--border);
         }
 
-        .about-text p {
+        .bio-text {
+            font-size: 1.0625rem;
             color: var(--text-subtle);
-            margin-bottom: 1.25rem;
+            line-height: 1.8;
+        }
+
+        .bio-text p { margin: 0 0 1.25rem; }
+        .bio-text p:last-child { margin-bottom: 0; }
+
+        /* Section headings */
+        .section-heading {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin: 0 0 0.5rem;
+            text-align: center;
+        }
+
+        .section-subheading {
+            color: var(--text-subtle);
+            text-align: center;
+            max-width: 42rem;
+            margin: 0 auto 3rem;
             font-size: 1.0625rem;
         }
 
-        .about-text p:last-child { margin-bottom: 0; }
+        /* Strategic Impact */
+        .impact-grid { display: grid; gap: 1.5rem; }
 
-        .side-project {
-            clear: both;
-            margin-top: 4rem;
+        .impact-card {
             background: var(--card-bg);
             padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .impact-role {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem;
+        }
+
+        .impact-company {
+            color: var(--text-subtle);
+            font-weight: 500;
+            margin: 0 0 0.25rem;
+        }
+
+        .impact-dates {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin: 0 0 1rem;
+        }
+
+        .impact-card ul { margin: 0; padding: 0; list-style: none; }
+
+        .impact-card li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-subtle);
+        }
+
+        .impact-card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6em;
+            width: 5px;
+            height: 5px;
+            background: var(--text);
+            border-radius: 50%;
+        }
+
+        .impact-note {
+            margin-top: 0.75rem;
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Recognition */
+        .recognition-section { background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+        .recognition-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 48rem; margin: 0 auto; }
+
+        .recognition-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+
+        .recognition-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .recognition-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin: 0 0 0.5rem;
+        }
+
+        .recognition-card p { color: var(--text-subtle); margin: 0; }
+
+        /* Speaking & Writing */
+        .content-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .content-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+            aspect-ratio: 1;
+        }
+
+        .content-item:hover { border-color: #bbb; }
+
+        .content-type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .content-item h3 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.25rem;
+            line-height: 1.3;
+        }
+
+        .content-meta {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .side-project {
+            margin-top: 2rem;
+            background: var(--card-bg);
+            padding: 1.5rem 2rem;
             border-radius: 1rem;
             border: 1px solid var(--border);
             border-left: 4px solid var(--text);
@@ -117,7 +370,7 @@ import BaseHead from '../components/BaseHead.astro';
             background: #f4f2ef;
             padding: 0.25rem 0.75rem;
             border-radius: 999px;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         .side-project h3 {
@@ -125,12 +378,13 @@ import BaseHead from '../components/BaseHead.astro';
             font-size: 1.25rem;
             font-weight: 600;
             letter-spacing: -0.02em;
-            margin: 0 0 0.5rem;
+            margin: 0 0 0.25rem;
         }
 
         .side-project p {
             color: var(--text-subtle);
-            margin: 0 0 1rem;
+            margin: 0 0 0.75rem;
+            font-size: 0.9375rem;
         }
 
         .side-project a {
@@ -145,15 +399,10 @@ import BaseHead from '../components/BaseHead.astro';
 
         .side-project a:hover { opacity: 0.7; }
 
-        .contact-section {
-            margin-top: 4rem;
-            padding: 3rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-        }
+        /* Contact */
+        .contact-section { background: var(--card-bg); border-top: 1px solid var(--border); }
 
-        .contact-section .contact-inner {
+        .contact-section .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -161,7 +410,7 @@ import BaseHead from '../components/BaseHead.astro';
 
         .contact-section h2 {
             font-family: var(--font-heading);
-            font-size: 1.75rem;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
             font-weight: 600;
             letter-spacing: -0.03em;
             margin: 0 0 0.25rem;
@@ -170,6 +419,7 @@ import BaseHead from '../components/BaseHead.astro';
         .contact-section p {
             color: var(--text-subtle);
             margin: 0;
+            font-size: 1.0625rem;
         }
 
         .contact-button {
@@ -188,75 +438,225 @@ import BaseHead from '../components/BaseHead.astro';
 
         .contact-button:hover { opacity: 0.85; }
 
+        /* Footer */
         .site-footer {
             border-top: 1px solid var(--border);
             padding: 2rem 0;
-            text-align: center;
         }
 
-        .site-footer p {
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-subtle);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover { color: var(--text); }
+
+        .footer-content p {
             color: var(--text-muted);
             font-size: 0.875rem;
             margin: 0;
         }
 
         @media (min-width: 768px) {
-            .hobbies-grid { grid-template-columns: repeat(3, 1fr); }
+            .main-nav { display: flex; }
+            .mobile-menu-button { display: none; }
+            .bio-grid { grid-template-columns: 300px 1fr; }
+            .impact-grid { grid-template-columns: 1fr 1fr; }
+            .footer-content { flex-direction: row; justify-content: space-between; }
         }
     </style>
 </head>
 <body>
-    <main>
-        <div class="container">
-            <a href="/" class="back-link">
-                <i data-lucide="arrow-left" width="20" height="20"></i>
-                Back to Home
-            </a>
-
-            <header class="page-header">
-                <h1>A Few Words About Me</h1>
-                <p class="subtitle">Product Content and Content Engineering Leader</p>
-            </header>
-
-            <div class="about-photo">
-                <img src="/KimJeske.jpg" alt="Kim Jeske" loading="lazy">
-            </div>
-
-            <div class="about-text">
-                <p>I lead teams that build documentation and content experiences that help developers succeed. My work sits at the intersection of content strategy, user experience, and team leadership.</p>
-
-                <p>I started as a technical writer, and for a long time, that was exactly where I wanted to be. I loved the craft — making complex things clear, finding the right structure, writing for real people with real questions.</p>
-
-                <p>But somewhere along the way, I noticed I was spending more and more time with the people around me. Thinking through their career goals. Sitting with their drafts not just to fix them, but to understand how they saw the work. A mentor once told me I had a gift for listening and giving feedback that landed. I didn't set out to become a manager — it grew out of what I was already doing.</p>
-            </div>
-
-            <div class="side-project">
-                <span class="side-project-tag">Side Project</span>
-                <h3>Crochetly</h3>
-                <p>My documentation site about crochet</p>
-                <a href="https://crochetly.com/" target="_blank">
-                    Visit Crochetly <i data-lucide="external-link" width="16" height="16"></i>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-content">
+            <a href="/" class="logo">Kim Jeske</a>
+            <nav class="main-nav">
+                <a href="/">Home</a>
+                <a href="/case-study">Case Studies</a>
+                <a href="/about" class="active">About</a>
+                <a href="https://www.linkedin.com/in/kimberlyjeske/" class="nav-cta" target="_blank">
+                    Book a call <i data-lucide="arrow-right" width="16" height="16"></i>
                 </a>
-            </div>
+            </nav>
+            <button id="mobile-menu-button" class="mobile-menu-button">
+                <i data-lucide="menu" width="20" height="20"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="mobile-menu">
+            <a href="/">Home</a>
+            <a href="/case-study">Case Studies</a>
+            <a href="/about">About</a>
+            <a href="https://www.linkedin.com/in/kimberlyjeske/" target="_blank">Book a call</a>
+        </div>
+    </header>
 
-            <section class="contact-section">
-                <div class="contact-inner">
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <a href="/" class="back-link">
+                    <i data-lucide="arrow-left" width="20" height="20"></i>
+                    Back to Home
+                </a>
+                <h1>About Kim Jeske</h1>
+                <p class="subtitle">Building docs that drive adoption.</p>
+            </div>
+        </section>
+
+        <!-- Bio -->
+        <section style="padding-top: 0;">
+            <div class="container">
+                <div class="bio-grid">
+                    <img src="/KimJeske.jpg" alt="Kim Jeske" class="about-photo" loading="lazy">
+
                     <div>
-                        <h2>Get in Touch</h2>
-                        <p>I'd love to connect with you.</p>
+                        <div class="bio-text">
+                            <p>I lead teams that build documentation and content experiences that help customers succeed. My work sits at the intersection of content strategy, user experience, and team leadership.</p>
+
+                            <p>I started as a technical writer, and for a long time, that was exactly where I wanted to be. I loved the craft&thinsp;—&thinsp;making complex things clear, finding the right structure, writing for real people with real questions.</p>
+
+                            <p>What started as a craft evolved into a practice. I learned that great documentation isn't just well-written&thinsp;—&thinsp;it's strategically designed. It's built for how people actually search, read, and integrate. Whether that's a developer scanning API docs, an AI agent parsing a reference, or a CTO evaluating your platform. That shift in thinking&thinsp;—&thinsp;from "writing good docs" to "designing docs as a product"&thinsp;—&thinsp;is what I now help companies operationalize.</p>
+                        </div>
+
+                        <div class="side-project">
+                            <span class="side-project-tag">Side Project</span>
+                            <h3>Crochetly</h3>
+                            <p>My documentation site about crochet&thinsp;—&thinsp;a hands-on exploration of AI-assisted content generation and docs-as-code.</p>
+                            <a href="https://crochetly.com/" target="_blank">
+                                Visit Crochetly <i data-lucide="external-link" width="16" height="16"></i>
+                            </a>
+                        </div>
                     </div>
-                    <a href="https://www.linkedin.com/in/kimberlyjeske/" class="contact-button" target="_blank">
-                        <i data-lucide="linkedin" width="20" height="20"></i>
-                        Connect on LinkedIn
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategic Impact -->
+        <section id="impact" class="recognition-section">
+            <div class="container">
+                <h2 class="section-heading">Strategic Impact</h2>
+                <p class="section-subheading">Building and leading high-performing teams at scale</p>
+
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <h3 class="impact-role">Senior Director, Head of Product Content and Content Engineering</h3>
+                        <p class="impact-company">Cloudflare</p>
+                        <p class="impact-dates">2020 - 2026</p>
+                        <ul>
+                            <li>Led team of 25+ tech writers, UX content strategists, and engineers</li>
+                            <li>Scaled docs infrastructure to serve 5M+ developers monthly</li>
+                            <li>Transformed docs into a developer tool using Cloudflare products</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-card">
+                        <h3 class="impact-role">Group Manager, Technical Communication</h3>
+                        <p class="impact-company">National Instruments</p>
+                        <p class="impact-dates">2016 - 2018</p>
+                        <ul>
+                            <li>Led team of technical writers supporting Semiconductor Test System</li>
+                            <li>Established technical communication policies and streamlined documentation workflows</li>
+                        </ul>
+                        <p class="impact-note">Earlier career included progressive technical writing roles at National Instruments.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards & Recognition -->
+        <section>
+            <div class="container">
+                <h2 class="section-heading">Awards &amp; Recognition</h2>
+                <div class="recognition-grid">
+                    <div class="recognition-card">
+                        <div class="recognition-badge">Winner</div>
+                        <h3>2025 DevPortal Awards</h3>
+                        <p>Cloudflare Docs&thinsp;—&thinsp;Best Unified Enterprise Developer Portal</p>
+                    </div>
+                    <div class="recognition-card">
+                        <div class="recognition-badge">Extraordinary Award</div>
+                        <h3>Cloudflare</h3>
+                        <p>Recognized for exceptional contributions and leadership</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Speaking & Writing -->
+        <section id="speaking-writing" class="recognition-section">
+            <div class="container">
+                <h2 class="section-heading">Speaking &amp; Writing</h2>
+                <p class="section-subheading" style="margin-bottom: 2rem;">Talks, webinars, and articles about strategy and leadership</p>
+
+                <div class="content-list">
+                    <a href="https://www.youtube.com/watch?v=IoRKCXbfGvQ" class="content-item" target="_blank">
+                        <div class="content-type">Webinar</div>
+                        <h3>Technical content is the product</h3>
+                        <p class="content-meta">The Content Wrangler &middot; 2022</p>
+                    </a>
+
+                    <a href="https://world.productledalliance.com/location/austin/" class="content-item" target="_blank">
+                        <div class="content-type">Conference</div>
+                        <h3>From first click to forever customer: The role of UX in product-led success</h3>
+                        <p class="content-meta">Product Led Alliance Austin &middot; 2025</p>
+                    </a>
+
+                    <a href="https://blog.cloudflare.com/content-as-a-product/" class="content-item" target="_blank">
+                        <div class="content-type">Blog</div>
+                        <h3>How we treat content as a product</h3>
+                        <p class="content-meta">Cloudflare Blog &middot; 2022</p>
+                    </a>
+
+                    <a href="https://blog.cloudflare.com/open-source-all-the-way-down-upgrading-our-developer-documentation/" class="content-item" target="_blank">
+                        <div class="content-type">Blog</div>
+                        <h3>Open source all the way down: Upgrading our developer documentation</h3>
+                        <p class="content-meta">Cloudflare Blog &middot; 2025</p>
                     </a>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
+
+        <!-- Let's Connect -->
+        <section class="contact-section">
+            <div class="container">
+                <div>
+                    <h2>Let's Connect</h2>
+                    <p>I'm always open to discussing new opportunities and collaborations.</p>
+                </div>
+                <a href="https://www.linkedin.com/in/kimberlyjeske/" class="contact-button" target="_blank">
+                    <i data-lucide="linkedin" width="20" height="20"></i>
+                    Connect on LinkedIn
+                </a>
+            </div>
+        </section>
     </main>
 
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2026 Kim Jeske. All rights reserved.</p>
+            <div class="footer-content">
+                <p>&copy; 2026 Kim Jeske. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/case-study">Case Studies</a>
+                    <a href="/about">About</a>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -265,6 +665,31 @@ import BaseHead from '../components/BaseHead.astro';
             if (window.lucide && typeof window.lucide.createIcons === 'function') {
                 window.lucide.createIcons();
             }
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('is-open');
+                });
+            }
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            if (mobileMenu && mobileMenu.classList.contains('is-open')) {
+                                mobileMenu.classList.remove('is-open');
+                            }
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>
