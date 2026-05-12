@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Kim Jeske</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -95,7 +96,7 @@
         .main-nav a:hover { color: var(--text); }
         .main-nav a.active { color: var(--text); }
 
-        .nav-cta {
+        .main-nav .nav-cta {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -110,9 +111,12 @@
             transition: background 0.2s ease, border-color 0.2s ease;
         }
 
-        .nav-cta:hover {
+        .main-nav .nav-cta:hover {
             background: #1a1a1a;
-            border-color: #999;
+            border-color: #ccc;
+            color: var(--button-text);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
         }
 
         .mobile-menu-button {
@@ -436,7 +440,10 @@
             transition: opacity 0.3s ease;
         }
 
-        .contact-button:hover { opacity: 0.85; }
+        .contact-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
 
         /* Footer */
         .site-footer {

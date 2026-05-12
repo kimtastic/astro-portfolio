@@ -8,6 +8,7 @@ import BaseHead from '../../components/BaseHead.astro';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Studies | Kim Jeske</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -178,7 +179,10 @@ import BaseHead from '../../components/BaseHead.astro';
             transition: opacity 0.3s ease;
         }
 
-        .contact-button:hover { opacity: 0.85; }
+        .contact-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
 
         @media (min-width: 768px) {
             .case-studies-grid { grid-template-columns: repeat(2, 1fr); }
