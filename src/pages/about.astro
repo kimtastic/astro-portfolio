@@ -496,9 +496,9 @@ import Mixpanel from '../components/Mixpanel.astro';
             <a href="/" class="logo">Kim Jeske</a>
             <nav class="main-nav">
                 <a href="/">Home</a>
-                <a href="/case-study">Case Studies</a>
-                <a href="/about" class="active">About</a>
-                <a href="https://www.linkedin.com/in/kimberlyjeske/" class="nav-cta" target="_blank">
+                <a href="/case-study" data-track="case-studies">Case Studies</a>
+                <a href="/about" class="active" data-track="about">About</a>
+                <a href="https://www.linkedin.com/in/kimberlyjeske/" class="nav-cta" data-track="linkedin" target="_blank">
                     Book a call <i data-lucide="arrow-right" width="16" height="16"></i>
                 </a>
             </nav>
@@ -508,9 +508,9 @@ import Mixpanel from '../components/Mixpanel.astro';
         </div>
         <div id="mobile-menu" class="mobile-menu">
             <a href="/">Home</a>
-            <a href="/case-study">Case Studies</a>
-            <a href="/about">About</a>
-            <a href="https://www.linkedin.com/in/kimberlyjeske/" target="_blank">Book a call</a>
+            <a href="/case-study" data-track="case-studies">Case Studies</a>
+            <a href="/about" data-track="about">About</a>
+            <a href="https://www.linkedin.com/in/kimberlyjeske/" data-track="linkedin" target="_blank">Book a call</a>
         </div>
     </header>
 
@@ -647,7 +647,7 @@ import Mixpanel from '../components/Mixpanel.astro';
                     <h2>Let's Connect</h2>
                     <p>I'm always open to discussing new opportunities and collaborations.</p>
                 </div>
-                <a href="https://www.linkedin.com/in/kimberlyjeske/" class="contact-button" target="_blank">
+                <a href="https://www.linkedin.com/in/kimberlyjeske/" class="contact-button" data-track="linkedin" target="_blank">
                     <i data-lucide="linkedin" width="20" height="20"></i>
                     Connect on LinkedIn
                 </a>
@@ -662,8 +662,8 @@ import Mixpanel from '../components/Mixpanel.astro';
                 <p>&copy; 2026 Kim Jeske. All rights reserved.</p>
                 <div class="footer-links">
                     <a href="/">Home</a>
-                    <a href="/case-study">Case Studies</a>
-                    <a href="/about">About</a>
+                    <a href="/case-study" data-track="case-studies">Case Studies</a>
+                    <a href="/about" data-track="about">About</a>
                 </div>
             </div>
         </div>
@@ -697,6 +697,18 @@ import Mixpanel from '../components/Mixpanel.astro';
                             targetElement.scrollIntoView({ behavior: 'smooth' });
                         }
                     }
+                });
+            });
+
+            document.querySelectorAll('[data-track]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const name = el.getAttribute('data-track');
+                    const label = {
+                        'linkedin': 'LinkedIn',
+                        'case-studies': 'Case Studies',
+                        'about': 'About',
+                    }[name] || name;
+                    mixpanel.track('Button Clicked', { 'Button Name': label });
                 });
             });
         });

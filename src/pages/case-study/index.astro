@@ -1,5 +1,5 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
+import Mixpanel from '../../components/Mixpanel.astro';
 ---
 
 <!DOCTYPE html>
@@ -11,6 +11,7 @@ import BaseHead from '../../components/BaseHead.astro';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <Mixpanel />
     <style>
         :root {
             --page-bg: #fcfafa;
@@ -241,7 +242,7 @@ import BaseHead from '../../components/BaseHead.astro';
                     <h2>Let's Connect</h2>
                     <p>Interested in working together? Let's talk.</p>
                 </div>
-                <a href="https://www.linkedin.com/in/kimberlyjeske/" class="contact-button" target="_blank">
+                <a href="https://www.linkedin.com/in/kimberlyjeske/" class="contact-button" data-track="linkedin" target="_blank">
                     <i data-lucide="linkedin" width="20" height="20"></i>
                     Connect on LinkedIn
                 </a>
@@ -254,6 +255,18 @@ import BaseHead from '../../components/BaseHead.astro';
             if (window.lucide && typeof window.lucide.createIcons === 'function') {
                 window.lucide.createIcons();
             }
+
+            document.querySelectorAll('[data-track]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const name = el.getAttribute('data-track');
+                    const label = {
+                        'linkedin': 'LinkedIn',
+                        'case-studies': 'Case Studies',
+                        'about': 'About',
+                    }[name] || name;
+                    mixpanel.track('Button Clicked', { 'Button Name': label });
+                });
+            });
         });
     </script>
 </body>
